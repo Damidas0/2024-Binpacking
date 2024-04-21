@@ -1,13 +1,18 @@
-#include Rectangle.h    
+#include "Rectangle.h"    
 
 Rectangle::Rectangle(int width, int height)
     : m_width(width), m_height(height) {}
 
-Rectangle::getWidth() const {
+int Rectangle::getWidth() const {
     return m_width;
 }
-Rectangle::getHeight() const{
+int Rectangle::getHeight() const{
     return m_height; 
 }
-
+void Rectangle::setWidth(int width) {
+    m_width = width;
+}
+void Rectangle::setHeight(int height) {
+    m_height = height;
+}
 

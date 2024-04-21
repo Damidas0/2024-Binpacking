@@ -4,8 +4,10 @@
 class Rectangle {
 public:
     Rectangle(int width, int height);
-    getWidht() const;
-    getHeight() const;
+    int getWidth() const;
+    int getHeight() const;
+    void setWidth(int width);
+    void setHeight(int height);
 private:
     int m_width; 
     int m_height;

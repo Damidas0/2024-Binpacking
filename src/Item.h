@@ -3,14 +3,14 @@
 #import "Bin.h"
 
 
-class Rectangle : public Item {
+class Item : public Rectangle {
     public: 
         Item(int width, int height);
-        Bin belongsTo; 
+        Bin *belongsTo; 
         Coordinate bottomLeft;
 
         void rotate();
 
     private:
 
-}
+};

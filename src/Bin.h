@@ -1,8 +1,14 @@
-#import "Bin.h"
+#ifndef BIN_H
+#define BIN_H
 
-class Rectangle : public Bin {
+
+#include "Rectangle.h"
+
+class Bin : public Rectangle{
     private:
     public:
         Bin(int width, int height);
         
-}
+};
+
+#endif

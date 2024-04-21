@@ -1,4 +1,4 @@
-#import "Bin.h" 
+#include "Bin.h" 
 
 Bin::Bin(int width, int height)
-    : m_width(width), m_height(height) {}
+    : Rectangle(width, height) {}
