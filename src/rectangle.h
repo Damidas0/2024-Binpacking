@@ -3,12 +3,14 @@
 
 class Rectangle {
 public:
-    Rectangle(int x, int y);
-    int getX() const;
-    int getY() const;
+    Rectangle(int width, int height);
+    int getWidth() const;
+    int getHeight() const;
+    void setWidth(int width);
+    void setHeight(int height);
 private:
-    int m_x;
-    int m_y; 
+    int m_width; 
+    int m_height;
 };
 
 #endif
