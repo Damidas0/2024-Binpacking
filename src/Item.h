@@ -5,9 +5,10 @@
 
 class Item : public Rectangle {
     public: 
-        Item(int width, int height);
+        Item(int width, int height, int id);
         Bin *belongsTo; 
-        Coordinate bottomLeft;
+        Coordinate topLeft;
+        int m_id; 
 
         void rotate();
 
