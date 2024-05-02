@@ -4,16 +4,16 @@
 CC = g++
 FLAGS = -Wall -ggdb -g
 
-all: folder test.out
+all: folder filereader.out
 
 #------ OUT -------#
-test.out: test.o 
-	$(CC) -g $(OBJS) obj/test.o -o bin/test.out 
+filereader.out: filereader.o 
+	$(CC) -g $(OBJS) obj/filereader.o -o bin/filereader.out 
 
 
 #------ O --------#
-test.o: src/test.cpp
-	$(CC) $(FLAGS) -c src/test.cpp -o obj/test.o
+filereader.o: src/filereader.cpp
+	$(CC) $(FLAGS) -c src/filereader.cpp -o obj/filereader.o
 
 
 #---- CPP -----# 
