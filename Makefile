@@ -1,9 +1,9 @@
 # Définition des variables
 CXX := g++
-CXXFLAGS := -Wall -Wextra -std=c++11
+CXXFLAGS := -Wall -Wextra -std=c++11 -Ilib/Jsoncpp/include
 SRC_DIR := src
 BUILD_DIR := build
-TARGET := myprogram
+TARGET := bin/myprogram
 
 # Liste de tous les fichiers source
 SRCS := $(wildcard $(SRC_DIR)/*.cpp)

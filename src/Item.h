@@ -1,3 +1,4 @@
+#pragma once
 #import "Rectangle.h"
 #import "Coordinate.h"
 #import "Bin.h"
