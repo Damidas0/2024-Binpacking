@@ -1,6 +1,7 @@
 #ifndef BIN_H
 #define BIN_h
 
+
 #include "rectangle.h"
 
 class bin : public Rectangle{

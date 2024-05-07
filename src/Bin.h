@@ -2,7 +2,7 @@
 #define BIN_H
 
 
-#include "Rectangle.h"
+#include "rectangle.h"
 
 class Bin : public Rectangle{
     private:
