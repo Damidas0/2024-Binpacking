@@ -39,7 +39,7 @@ def display_solution(json_file):
                     ax.text(current_x + rect["x"] + rect["height"] / 2, current_y + rect["y"] + rect["width"] / 2, str(rect["id"]), color='black', fontsize=8, ha='center', va='center')
             
             # Mise à jour de la position pour le prochain bin
-            current_x += bin_width + 10  # Ajout d'un espacement de 10 entre les bins
+            current_x += bin_width 
         
         ax.set_aspect('equal', 'box')
         ax.autoscale()

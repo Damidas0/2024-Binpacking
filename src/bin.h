@@ -1,11 +1,12 @@
 #ifndef BIN_H
-#define BIN_h
+#define BIN_H
 
 
 #include "rectangle.h"
 
-class bin : public Rectangle{
+class Bin : public Rectangle{
     public : 
+    Bin(int width, int height);
 
 
 
