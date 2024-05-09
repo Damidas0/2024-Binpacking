@@ -8,5 +8,6 @@ int main() {
 
     Manager m("data/binpacking2d/binpacking2d-01.bp2d");
     cout<<m;
+    m.dumpToJson("d.json");
     return 0;
 }

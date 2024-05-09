@@ -9,6 +9,38 @@ Manager::Manager(std::string file_path) {
     parse_file(file_path);   
 }
 
+void Manager::dumpToJson(const std::string &file_path) const {
+        Json::Value root; // Racine de notre structure JSON
+
+        root["name"] = name;
+        root["comment"] = comment;
+        root["nb_items"] = nb_items;
+        root["bin_width"] = bin_width;
+        root["bin_height"] = bin_height;
+
+        //traitement de la liste d'item
+        Json::Value itemsJson(Json::arrayValue);
+        for(const auto& item : items)
+        {
+            itemsJson.append(item.serialize());
+        }
+        root["items"] = itemsJson;
+
+        // Écriture
+        std::ofstream outputFile(file_path);
+        if(outputFile.is_open())
+        {
+            outputFile << root;
+            outputFile.close();
+            std::cout << "Fichier enregistré\n";
+        }
+        else
+        {
+            std::cerr << "Impossible d'ouvrir le fichier pour écrire le dump JSON.\n";
+        }
+    }
+
+
 void Manager::parse_file(std::string file_path) {
     std::ifstream file(file_path);
     std::string line;

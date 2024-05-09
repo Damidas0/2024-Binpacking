@@ -3,7 +3,7 @@
 #include "Coordinate.h"
 #include "Bin.h"
 #include <ostream>
-
+#include<jsoncpp/json/json.h>
 
 class Item : public Rectangle {
     public: 
@@ -15,7 +15,7 @@ class Item : public Rectangle {
         void rotate();
 
         friend std::ostream &operator<<(std::ostream &out, const Item& i);
-
+        Json::Value serialize() const;
 
     private:
 

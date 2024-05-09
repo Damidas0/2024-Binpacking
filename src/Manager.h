@@ -4,6 +4,8 @@
 #include<list>
 #include "Item.h"
 #include <ostream>
+#include <jsoncpp/json/json.h> // Vous aurez besoin de la bibliothèque JsonCpp
+
 
 
 class Manager
@@ -28,6 +30,8 @@ public:
     Manager(std::string file_path);
 
     friend std::ostream &operator<<(std::ostream &out, Manager &m);
+
+    void dumpToJson(const std::string& file_path) const;
 
 
     
