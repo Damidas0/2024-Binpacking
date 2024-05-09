@@ -1,5 +1,5 @@
 #include <iostream>
-#include "coordinate.h"
+#include "Coordinate.h"
 
 Coordinate::Coordinate(double x, double y)
     : m_x(x), m_y(y) {}

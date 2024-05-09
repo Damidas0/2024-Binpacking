@@ -1,27 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "filereader.h"
+#include "Manager.h"
 
 using namespace std;
 int main() {
 
-
-    std::ifstream file("data/binpacking2d/binpacking2d-01.bp2d");
-    
-    // Check if the file opened successfully
-    if (!file.is_open()) {
-        std::cerr << "Error opening file." << std::endl;
-        return 1;
-    }
-    
-
-    std::string line;
-    while (std::getline(file, line)) {
-        std::cout << line << std::endl;
-    }
-    
-    file.close();
-    
+    Manager m("data/binpacking2d/binpacking2d-01.bp2d");
+    cout<<m;
     return 0;
 }
