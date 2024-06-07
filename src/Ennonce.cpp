@@ -4,14 +4,14 @@
 #include <vector>
 
 #include "Item.h"
-#include "Manager.h"
+#include "Ennonce.h"
 #include "JsonWriter.h"
 
-Manager::Manager(std::string file_path) {
+Ennonce::Ennonce(std::string file_path) {
     parse_file(file_path);   
 }
 
-void Manager::dumpToJson(const std::string &file_path) const
+void Ennonce::dumpToJson(const std::string &file_path) const
 {
     std::ofstream outputFile(file_path);
     JsonWriter j;
@@ -47,7 +47,7 @@ void Manager::dumpToJson(const std::string &file_path) const
     }
 }
 
-void Manager::parse_file(std::string file_path) {
+void Ennonce::parse_file(std::string file_path) {
     std::ifstream file(file_path);
     std::string line;
     if (!file.is_open()) {
@@ -101,7 +101,7 @@ void Manager::parse_file(std::string file_path) {
     // }
 }
 
-std::string Manager::getValue(std::string line)
+std::string Ennonce::getValue(std::string line)
 {
         // Recherche de la position du caractère ":" dans la ligne
     size_t pos = line.find(":");
@@ -120,7 +120,7 @@ std::string Manager::getValue(std::string line)
     }
 }
 
-Item Manager::getItemFromLine(std::string line)
+Item Ennonce::getItemFromLine(std::string line)
 {
     //split line 
     std::vector<std::string> tokens = splitByWhitespace(line);
@@ -128,7 +128,7 @@ Item Manager::getItemFromLine(std::string line)
     return (Item(std::stoi(tokens[0]), std::stoi(tokens[1]), std::stoi(tokens[2])));
 }
 
-std::vector<std::string> Manager::splitByWhitespace(const std::string &str){
+std::vector<std::string> Ennonce::splitByWhitespace(const std::string &str){
     std::istringstream iss(str);
     std::vector<std::string> tokens;
     std::string token;
@@ -141,7 +141,7 @@ std::vector<std::string> Manager::splitByWhitespace(const std::string &str){
 }
 
 
-std::ostream &operator<<(std::ostream &out, Manager &m)
+std::ostream &operator<<(std::ostream &out, Ennonce &m)
 {
     out << "Name: " << m.name << std::endl;
     out << "Comment: " << m.comment << std::endl;

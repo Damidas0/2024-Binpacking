@@ -4,11 +4,10 @@
 #include<list>
 #include "Item.h"
 #include <ostream>
-#include <jsoncpp/json/json.h> // Vous aurez besoin de la bibliothèque JsonCpp
 
 
 
-class Manager
+class Ennonce
 {
 private:
     //Variables
@@ -26,11 +25,8 @@ private:
     std::vector<std::string> splitByWhitespace(const std::string& str);
 
 public:
-
-    Manager(std::string file_path);
-
-    friend std::ostream &operator<<(std::ostream &out, Manager &m);
-
+    Ennonce(std::string file_path);
+    friend std::ostream &operator<<(std::ostream &out, Ennonce &m);
     void dumpToJson(const std::string& file_path) const;
 
 
