@@ -2,44 +2,50 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+
 #include "Item.h"
 #include "Manager.h"
+#include "JsonWriter.h"
 
 Manager::Manager(std::string file_path) {
     parse_file(file_path);   
 }
 
-void Manager::dumpToJson(const std::string &file_path) const {
-        Json::Value root; // Racine de notre structure JSON
+void Manager::dumpToJson(const std::string &file_path) const
+{
+    std::ofstream outputFile(file_path);
+    JsonWriter j;
+    if (outputFile.is_open()) {
+        outputFile << "{\n";
+        outputFile << j.writeLine("name", name);
+        outputFile << j.writeLine("comment", comment); 
+        outputFile << j.writeLine("nb_items", std::to_string(nb_items));
+        outputFile << j.writeLine("bin_width", std::to_string(bin_width)); 
+        outputFile << j.writeLine("bin_height", std::to_string(bin_height)); 
 
-        root["name"] = name;
-        root["comment"] = comment;
-        root["nb_items"] = nb_items;
-        root["bin_width"] = bin_width;
-        root["bin_height"] = bin_height;
 
-        //traitement de la liste d'item
-        Json::Value itemsJson(Json::arrayValue);
-        for(const auto& item : items)
-        {
-            itemsJson.append(item.serialize());
-        }
-        root["items"] = itemsJson;
+        // Serialize items
+        outputFile << "\n    \"items\":\n    [\n ";
+        bool first = true;
 
-        // Écriture
-        std::ofstream outputFile(file_path);
-        if(outputFile.is_open())
-        {
-            outputFile << root;
-            outputFile.close();
-            std::cout << "Fichier enregistré\n";
+        for (const auto& item : items) {
+            if(!first) {
+                outputFile<<",";
+            }
+            item.serialize(outputFile);
+            outputFile<<"\n";
+            first = false;
+          
         }
-        else
-        {
-            std::cerr << "Impossible d'ouvrir le fichier pour écrire le dump JSON.\n";
-        }
+        outputFile << "    ]\n";
+
+        outputFile << "}\n";
+        outputFile.close();
+        std::cout << "Fichier enregistré\n";
+    } else {
+        std::cerr << "Impossible d'ouvrir le fichier pour écrire le dump JSON.\n";
     }
-
+}
 
 void Manager::parse_file(std::string file_path) {
     std::ifstream file(file_path);
