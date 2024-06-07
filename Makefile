@@ -1,6 +1,6 @@
 # Définition des variables
 CXX := g++
-CXXFLAGS := -Wall -Wextra -std=c++11 -Ilib/Jsoncpp/include -Ilib/Jsoncpp/lib 
+CXXFLAGS := -Wall -Wextra -std=c++11  
 SRC_DIR := src
 BUILD_DIR := build
 TARGET := bin/myprogram
@@ -9,7 +9,7 @@ TARGET := bin/myprogram
 SRCS := $(wildcard $(SRC_DIR)/*.cpp)
 
 # Liste de tous les fichiers objets
-OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS)) -ljsoncpp
+OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 
 # Règle de compilation
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp

@@ -3,12 +3,11 @@
 #include "Coordinate.h"
 #include "Bin.h"
 #include <ostream>
-#include<jsoncpp/json/json.h>
 
 class Item : public Rectangle {
     public: 
         Item(int width, int height, int id);
-        Bin *belongsTo; 
+        //Bin *belongsTo; 
         Coordinate topLeft;
         int m_id; 
 

@@ -4,6 +4,7 @@
 #include<list>
 #include "Item.h"
 #include <ostream>
+#include <vector>
 
 
 
@@ -29,8 +30,6 @@ public:
     friend std::ostream &operator<<(std::ostream &out, Ennonce &m);
     void dumpToJson(const std::string& file_path) const;
 
-
-    
 };
 
 
