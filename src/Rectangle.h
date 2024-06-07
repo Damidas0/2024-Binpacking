@@ -8,6 +8,7 @@ public:
     int getHeight() const;
     void setWidth(int width);
     void setHeight(int height);
+    int getArea() const;
 private:
     int m_width; 
     int m_height;
