@@ -9,12 +9,13 @@
 
 class Bin : public Rectangle{
     private:
-        std::list<Item> items; 
+        std::list<Item> items;
+        std::vector<std::vector<bool>> is_free; // grille de disponibilité (bien la modifier quand on ajoute un item)
     public:
         Bin(int width, int height);
         int freeSpace() const;
         bool isFree(Coordinate c); 
-        std::list<Coordinate> listFreeCoordinates() const; 
+        std::vector<Coordinate> listFreeCoordinates() const; 
 
 };
 
