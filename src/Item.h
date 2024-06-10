@@ -1,7 +1,6 @@
 #pragma once
 #include "Rectangle.h"
 #include "Coordinate.h"
-#include "Bin.h"
 #include <ostream>
 
 class Item : public Rectangle {

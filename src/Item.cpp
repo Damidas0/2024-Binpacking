@@ -6,7 +6,7 @@
 #include <fstream>
 
 Item::Item(int id, int width, int height) : Rectangle(width, height), topLeft(0, 0), m_id(id) { // il faudra voir si on peut passer belongTo en paramètre
-    belongsTo = nullptr;
+    //belongsTo = nullptr;
 }
 void Item::rotate() {
     int temp = getWidth();

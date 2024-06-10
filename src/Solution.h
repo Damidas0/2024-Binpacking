@@ -9,11 +9,15 @@
 class Solution
 {
 private:
-    //
+    std::list<Bin> listBin;
     std::map<Item, Bin*> map;
 
+
+    std::list<Coordinate> listFreeCoordinates(Bin b);
+    bool fit(Item i, Coordinate c, Bin b);
+
 public:
-    Solution(/* args */);
+    Solution();
     ~Solution();
     //fonction qui dumpjson
     void dumpToJson(const std::string& file_path) const;
@@ -30,11 +34,3 @@ public:
     
 
 };
-
-Solution::Solution(/* args */)
-{
-}
-
-Solution::~Solution()
-{
-}
