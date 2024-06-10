@@ -36,40 +36,55 @@ bool Bin::isFree(Coordinate c) {
 
 }
 
-// std::list<Coordinate> Bin::listFreeCoordinates() const {
-//     //liste toutes les coordonnées libre pour lesquel il existe aucune autre coordonnée libre qui est plus en haut ET plus à gauche
-//     std::list<Coordinate> free_coordinates; 
-//     int width = this->getWidth();
-//     int height = this->getHeight();
+// Fonction potentiellemnt optimisable
+std::list<Coordinate> Bin::listFreeCoordinates() const { 
+    //liste toutes les coordonnées libre pour lesquel il existe aucune autre coordonnée libre qui est plus en haut ET plus à gauche
+    std::list<Coordinate> free_coordinates; 
+    int width = this->getWidth();
+    int height = this->getHeight();
     
-//     // Création de la grille de disponibilité
-//     std::vector<std::vector<bool>> is_free(height, std::vector<bool>(width, true));
+    // Création de la grille de disponibilité
+    std::vector<std::vector<bool>> is_free(height, std::vector<bool>(width, true));
     
-//     // Marquer les cellules occupées par les items
-//     for (auto item : this->items) {
-//         Coordinate topLeft = item.topLeft;
-//         for (int y = topLeft.getY(); y < topLeft.getY() + item.getHeight(); ++y) {
-//             for (int x = topLeft.getX(); x < topLeft.getX() + item.getWidth(); ++x) {
-//                 is_free[y][x] = false;
-//             }
-//         }
-//     }
+    // Marquer les cellules occupées par les items
+    for (auto item : this->items) {
+        Coordinate topLeft = item.topLeft;
+        for (int y = topLeft.getY(); y < topLeft.getY() + item.getHeight(); ++y) {
+            for (int x = topLeft.getX(); x < topLeft.getX() + item.getWidth(); ++x) {
+                is_free[y][x] = false;
+            }
+        }
+    }
 
-//     // Parcourir la grille pour trouver les coordonnées libres dominantes
-//     std::list<Coordinate> dominants_free_coordinates;
-//     for (int y = 0; y < height; ++y) {
-//         for (int x = 0; x < width; ++x) {
-//             if (is_free[y][x]) {
-//                 bool is_dominant = true;
+    std::vector<Coordinate> dominant_free_coordinates;
 
-//                 // Vérifier si la coordonnée est dominante en la comparant avec les coordnnée dominantes actuelles
-//                 }
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            if (is_free[y][x]) {
+                if(dominant_free_coordinates.empty()){
+                    dominant_free_coordinates.push_back(Coordinate(x, y));
+                }
 
-          
-//         }
-//     }
+                else
+                {
+                    bool is_dominant = false; 
+                    for (auto it = dominant_free_coordinates.begin(); it != dominant_free_coordinates.end(); ++it)
+                    {
+                        if (x < it->getX() && y < it->getY())
+                        {
+                            is_dominant = true;
+                            it = dominant_free_coordinates.erase(it);
+                        }
+                    }
+                    if (is_dominant)
+                    {
+                        dominant_free_coordinates.push_back(Coordinate(x, y));
+                    }
+                }
+               
+            }
+        }
+    }
 
 
-
-
-// }
+}
