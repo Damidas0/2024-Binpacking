@@ -16,3 +16,7 @@ void Rectangle::setHeight(int height) {
     m_height = height;
 }
 
+int Rectangle::getArea() const {
+    return m_width * m_height;
+}
+

@@ -4,7 +4,7 @@
 
 #include "Rectangle.h"
 #include<list>
-#include"Item.h"
+#include "Item.h"
 #include"JsonWriter.h"
 #include "Ennonce.h"
 
@@ -12,7 +12,8 @@
 
 class Bin : public Rectangle{
     private:
-        std::list<Item> items; 
+        std::list<Item> items;
+        std::vector<std::vector<bool>> is_free; // grille de disponibilité (bien la modifier quand on ajoute un item)
     public:
         Bin(int width, int , Ennonce e);
 
@@ -21,7 +22,12 @@ class Bin : public Rectangle{
         int freeSpace() const;
         bool isFree(Coordinate c); 
         bool fit(Coordinate c, Item i); 
-        std::list<Coordinate> listFreeCoordinates() const;
+        //std::list<Coordinate> listFreeCoordinates() const;
+        Bin(int width, int height);
+        //int freeSpace() const;
+        //bool isFree(Coordinate c); 
+        std::vector<Coordinate> listFreeCoordinates() const; 
+
 };
 
 #endif
