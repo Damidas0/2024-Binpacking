@@ -12,13 +12,20 @@ bool Solution::fit(Item i, Coordinate c, Bin b)
     return b.fit(c, i);;
 }
 
-Solution::Solution(/* args */)
+void Solution::createNewBin(int width, int height)
+{
+    Bin b(width, height);
+    listBin.push_back(b);
+}
+
+Solution::Solution()
 {
 
 }
 
 Solution::~Solution()
 {
+
 }
 
 void Solution::dumpToJson(const std::string &file_path) const

@@ -13,6 +13,7 @@ private:
     std::map<Item, Bin*> map;
 
 
+
     std::list<Coordinate> listFreeCoordinates(Bin b);
     bool fit(Item i, Coordinate c, Bin b);
 
@@ -26,7 +27,7 @@ public:
     //fct place qui fait appel à valide
     void setPosition(Item i, Coordinate c);
     
-    void createNewBin();
+    void createNewBin(int width, int height); // c'est l'algo qui stocke l'enoncé donc il faut lui donner les dimensions du bin
 
     //renvoi liste coint hg 
 

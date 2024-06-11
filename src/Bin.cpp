@@ -6,8 +6,9 @@
 #include <fstream>
 #include "Coordinate.h"
 
-Bin::Bin(int width, int height, Ennonce e) : Rectangle(width, height)
+Bin::Bin(int width, int height) : Rectangle(width, height)
 {
+    this->is_free = std::vector<std::vector<bool>>(height, std::vector<bool>(width, true));
 }
 
 void Bin::serialize(std::ofstream &outputFile) const
@@ -29,18 +30,26 @@ void Bin::serialize(std::ofstream &outputFile) const
     outputFile << "        }";
 }
 
-bool Bin::fit(Coordinate c, Item i)
+bool Bin::fit(Coordinate c, Item i) //on check les coordonnées en haut à gauche et on teste si ça rentre 
 {
-    /*if(isFree(c)){
-        //if(this->isFree(c.getX + i.getWidth))
-    }*/
-    return false;
+    for (int y = c.getY(); y < c.getY() + i.getHeight(); ++y)
+    {
+        for (int x = c.getX(); x < c.getX() + i.getWidth(); ++x)
+        {
+            if (x >= this->getWidth() || y >= this->getHeight() || !this->is_free[y][x])
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+
 }
 
 
 
 
-Bin::Bin(int width, int height) : Rectangle(width, height) {}
 
 int Bin::freeSpace() const {
     int width = this->getWidth();
@@ -61,43 +70,37 @@ bool Bin::isFree(Coordinate c) {
     return this->is_free[c.getY()][c.getX()];
 }
 
-// Fonction potentiellemnt optimisable
-std::vector<Coordinate> Bin::listFreeCoordinates() const { 
+
+//fonction potentiellement optimisable
+std::list<Coordinate> Bin::listFreeCoordinates() const { 
     int width = this->getWidth();
     int height = this->getHeight();
     
-    //liste toutes les coordonnées libre pour lesquel il existe aucune autre coordonnée libre qui est plus en haut ET plus à gauche
-    std::vector<Coordinate> dominant_free_coordinates;
+    // Liste toutes les coordonnées libres pour lesquelles il n'existe aucune autre coordonnée libre qui est plus en haut ET plus à gauche
+    std::list<Coordinate> dominant_free_coordinates;
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             if (this->is_free[y][x]) {
                 if(dominant_free_coordinates.empty()){
                     dominant_free_coordinates.push_back(Coordinate(x, y));
-                }
-
-                else
-                {
+                } else {
                     bool is_dominant = false; 
-                    for (auto it = dominant_free_coordinates.begin(); it != dominant_free_coordinates.end(); ++it)
-                    {
-                        if (x < it->getX() && y < it->getY())
-                        {
+                    for (auto it = dominant_free_coordinates.begin(); it != dominant_free_coordinates.end();) {
+                        if (x < it->getX() && y < it->getY()) {
                             is_dominant = true;
                             it = dominant_free_coordinates.erase(it);
+                        } else {
+                            ++it;
                         }
                     }
-                    if (is_dominant)
-                    {
+                    if (is_dominant) {
                         dominant_free_coordinates.push_back(Coordinate(x, y));
                     }
                 }
-               
             }
         }
     }
 
     return dominant_free_coordinates;
-
-
 }
