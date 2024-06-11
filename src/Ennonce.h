@@ -12,11 +12,23 @@ class Ennonce
 {
 private:
     //Variables
+    /**
+     * @brief Nom de l'instance
+     */
     std::string name; 
+    /**
+     * @brief Commentaire de l'instance
+     */
     std::string comment; 
+    /**
+     * @brief Nombre d'items
+     */
     int nb_items; 
     int bin_width; 
-    int bin_height; 
+    int bin_height;
+    /**
+     * @brief Liste des items à placer
+     */
     std::list<Item> items; 
 
     //private functions
