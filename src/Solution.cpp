@@ -18,6 +18,18 @@ void Solution::createNewBin(int width, int height)
     listBin.push_back(b);
 }
 
+void Solution::setPosition(Item i, Coordinate c, Bin b)
+{
+    if (b.fit(c, i)) {
+        //map.insert({i, &b}); marche pas pour l'instantn mais c'est important de fix #TODO
+        for (int x = c.getX(); x < c.getX() + i.getWidth(); x++) {
+            for (int y = c.getY(); y < c.getY() + i.getHeight(); y++) {
+                b.is_free[x][y] = false;
+            }
+        }
+    }
+}
+
 Solution::Solution()
 {
 
