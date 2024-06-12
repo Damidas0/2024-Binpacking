@@ -104,3 +104,14 @@ std::list<Coordinate> Bin::listFreeCoordinates() const {
 
     return dominant_free_coordinates;
 }
+
+void Bin::printIsFree() const {
+    int width = this->getWidth();
+    int height = this->getHeight();
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            std::cout << this->is_free[y][x] << " ";
+        }
+        std::cout << std::endl;
+    }
+}

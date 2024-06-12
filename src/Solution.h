@@ -2,21 +2,20 @@
 #include<list>
 #include"Item.h"
 #include"JsonWriter.h"
+#include <unordered_map>
 #include <map>
+ 
 #include"Bin.h"
 
 
 class Solution
 {
 private:
-    /**
-     * @brief list des bins de la solution
-     */
-    std::list<Bin> listBin;
+   
     /**
      * @brief map qui associe un item à un bin
      */
-    std::map<Item, Bin*> map;
+    std::unordered_map<Item, Bin*> map;
     /**
      * @brief Fonction qui renvoi la liste des coordonnées "non dominées" et libre en haut à gauche en utilisant la fonction listFreeCoordinates de Bin
      */
@@ -49,7 +48,7 @@ public:
      * @param b bin dans lequel on veut placer l'item (fait partie de la liste de bins de la solution)
      * @par Cette fonction appelle la fonction fit de Bin pour tester si l'item peut être placé à la coordonnée donnée et le place si c'est le cas en mettant à jour la map et la liste is_free du bin
      */
-    void setPosition(Item i, Coordinate c, Bin b);
+    void setPosition(Item i, Coordinate c, Bin& b);
     
     /**
      * @brief Fonction qui crée un nouveau bin avec les dimensions données (comme ça sera la classe Algo qui stocke l'énoncé on passe les dimensions en paramètre)
@@ -62,6 +61,13 @@ public:
     //renvoi liste coint hg 
 
     //l'ordre de prio est hauteur puis "gaucheur"
+
+    //membres: 
+
+    /**
+     * @brief list des bins de la solution
+     */
+    std::list<Bin> listBin;
     
 
 };

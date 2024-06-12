@@ -11,7 +11,15 @@
 class Ennonce
 {
 private:
-    //Variables
+
+    //private functions
+    void parse_file(std::string file_path);
+    std::string getValue(std::string line);
+    Item getItemFromLine(std::string line);
+    std::vector<std::string> splitByWhitespace(const std::string& str);
+
+public:
+        //Variables on les mets en publique pour l'instant
     /**
      * @brief Nom de l'instance
      */
@@ -30,20 +38,12 @@ private:
      * @brief Liste des items à placer
      */
     std::list<Item> items; 
-
-    //private functions
-    void parse_file(std::string file_path);
-    std::string getValue(std::string line);
-    Item getItemFromLine(std::string line);
-    std::vector<std::string> splitByWhitespace(const std::string& str);
-
-public:
     Ennonce(std::string file_path);
+    void printSpec();
     friend std::ostream &operator<<(std::ostream &out, Ennonce &m);
     void dumpToJson(const std::string& file_path) const;
 
 };
-
 
 
 

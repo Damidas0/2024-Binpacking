@@ -100,7 +100,20 @@ void Ennonce::parse_file(std::string file_path) {
     //     items.push_back(item);
     // }
 }
-
+void Ennonce::printSpec()
+{
+    std::cout << "Name: " << name << std::endl; 
+    std::cout << "Comment: " << comment << std::endl;
+    std::cout << "Number of items: " << nb_items << std::endl;
+    std::cout << "Bin width: " << bin_width << std::endl;
+    std::cout << "Bin height: " << bin_height << std::endl;
+    // Print the items
+    std::cout << "Items:" << std::endl;
+    for(const Item& item : items)
+    {
+        std::cout << " - " << item << std::endl;
+    }
+}
 std::string Ennonce::getValue(std::string line)
 {
         // Recherche de la position du caractère ":" dans la ligne

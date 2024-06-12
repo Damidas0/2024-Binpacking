@@ -56,7 +56,14 @@ class Bin : public Rectangle{
          * @par C'est à dire que cette fonction renvoi les coordonnées qui sont libre uniquement s'il n'existe pas d'autres coordonnées libres plus en haut ET plus à gauche
          * @return liste des coordonnées libres "non dominées" (dans un coin en haut à gauche)
          */
-        std::list<Coordinate> listFreeCoordinates() const; 
+        std::list<Coordinate> listFreeCoordinates() const;
+
+        /**
+         * @brief fonction qui affiche la grille is_free
+         */
+        void printIsFree() const;
+        
+         
 
 };
 

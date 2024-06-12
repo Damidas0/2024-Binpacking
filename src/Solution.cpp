@@ -9,7 +9,7 @@ std::list<Coordinate> Solution::listFreeCoordinates(Bin b)
 
 bool Solution::fit(Item i, Coordinate c, Bin b)
 {
-    return b.fit(c, i);;
+    return b.fit(c, i);
 }
 
 void Solution::createNewBin(int width, int height)
@@ -18,15 +18,22 @@ void Solution::createNewBin(int width, int height)
     listBin.push_back(b);
 }
 
-void Solution::setPosition(Item i, Coordinate c, Bin b)
+void Solution::setPosition(Item i, Coordinate c, Bin &b)
 {
     if (b.fit(c, i)) {
-        //map.insert({i, &b}); marche pas pour l'instantn mais c'est important de fix #TODO
+
+
+        map[i] = &b;
+
         for (int x = c.getX(); x < c.getX() + i.getWidth(); x++) {
             for (int y = c.getY(); y < c.getY() + i.getHeight(); y++) {
                 b.is_free[x][y] = false;
             }
         }
+    }
+    else 
+    {
+        std::cerr << "Item cannot be placed at the given coordinates\n";
     }
 }
 
