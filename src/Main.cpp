@@ -22,7 +22,6 @@ void testBin()
     cout << b.freeSpace() << endl; //100
     cout << b.isFree(Coordinate(0,0)) << endl; //true
 
-    cout << b.listFreeCoordinates().size() << endl; //1 le coin en haut à gauche uniquement
 
 
 
@@ -46,41 +45,26 @@ void testBin()
 
     std::cout << "Sérialisation complétée avec succès dans output.json" << std::endl;}
 
-void testSolution()
+void testjson()
 {
-    Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
-    //m.printSpec(); 
+    //test ecrit correctement dans le fichier à partir de solutio
 
-    //création d'une solution
-    Solution s;
+    Solution s; 
     s.createNewBin(10,10);
-
-    //placement des items
-    Item i1(5, 5, 1);
-    Item i2(3, 3, 2);
-
-    cout << s.listBin.empty() << endl; //false
+    Item i1(1, 2, 3);
     s.setPosition(i1, Coordinate(0,0), s.listBin.front());
 
-    cout << s.listBin.size() << endl; //1
-
-    s.listBin.front().printIsFree(); //affiche la grille is_free
-
-    cout << s.listBin.front().isFree(Coordinate(0,0)) << endl; //false
-
+    s.createNewBin(10,10);
+    Item i2(2, 3, 4);
+    s.setPosition(i2, Coordinate(0,0), s.listBin.back());
 
     s.dumpToJson("output.json");
-
-    cout << "Sérialisation complétée avec succès dans output.json" << endl;
-
-
-
 
 
 }
 
 int main() {
-    testSolution();
+    testjson();
 
     return 0;
     

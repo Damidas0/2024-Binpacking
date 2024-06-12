@@ -4,11 +4,11 @@
 #include "Rectangle.h"
 #include "Coordinate.h"
 #include <ostream>
-#include <functional> // N'oubliez pas d'inclure <functional> pour utiliser std::hash
+#include <functional> // inclure <functional> pour utiliser std::hash
 
 class Item : public Rectangle {
 public: 
-    Item(int width, int height, int id);
+    Item(int id, int width, int height);
     Coordinate topLeft;
     int m_id; 
     void rotate();
