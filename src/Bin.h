@@ -19,6 +19,8 @@ class Bin : public Rectangle{
         
         
     public:
+
+    
         /**
          * @brief Constructeur de la classe Bin qui initialise la grille is_free et crée les bins avec les bonnes dimensions 
          */
@@ -27,6 +29,10 @@ class Bin : public Rectangle{
          * @brief Fonction qui sérialise le bin dans un fichier de sortie
          */
         void serialize(std::ofstream& outputFile) const;
+
+        void addItem(Item i);
+        
+
         /**
          * @brief Fonction qui renvoi le nombre de place libre dans le bin
          */
@@ -62,7 +68,7 @@ class Bin : public Rectangle{
          * @brief fonction qui affiche la grille is_free
          */
         void printIsFree() const;
-        
+       
          
 
 };
