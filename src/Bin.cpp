@@ -11,24 +11,7 @@ Bin::Bin(int width, int height) : Rectangle(width, height)
     this->is_free = std::vector<std::vector<bool>>(height, std::vector<bool>(width, true));
 }
 
-void Bin::serialize(std::ofstream &outputFile) const
-{
-    outputFile << "        {\n";
-    //outputFile << "            \"id\": \"" << getId() << "\",\n";
-    outputFile << "            \"items\": [\n";
-    bool first = true;
-    for (const auto &item : items)
-    {
-        if (!first)
-        {
-            outputFile << ",\n";
-        }
-        item.serialize(outputFile);
-        first = false;
-    }
-    outputFile << "\n            ]\n";
-    outputFile << "        }";
-}
+
 
 bool Bin::fit(Coordinate c, Item i) //on check les coordonnées en haut à gauche et on teste si ça rentre 
 {

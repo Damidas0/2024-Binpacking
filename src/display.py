@@ -1,49 +1,64 @@
-import os
 import json
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+import matplotlib.patches as patches
+from matplotlib.ticker import MaxNLocator
+import json
 
-def display_solution(json_file):
-    # Obtention du chemin absolu du fichier JSON
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    json_path = os.path.join(script_dir, json_file)
+def plot_binpacking(data):
+    bins = data['bins']
     
-    # Chargement des données depuis le fichier JSON
-    with open(json_path, 'r') as f:
-        data = json.load(f)
+    num_bins = len(bins)
+    num_rows = (num_bins + 4) // 6  # Calcul du nombre de lignes pour la disposition des bins
+    fig, axs = plt.subplots(num_rows, 6, figsize=(4 * 6, 4 * num_rows))
+    axs = axs.flatten()
+    
+    for i, bin in enumerate(bins):
+        ax = axs[i]
+        bin_width = bin['dimensions']['width']
+        bin_height = bin['dimensions']['height']
         
-        # Création de la figure
-        fig, ax = plt.subplots()
-        
-        # Initialisation de la position actuelle
-        current_x = 0
-        current_y = 0
-        
-        # Parcours des bins
-        for bin_data in data["bins"]:
-            bin_width = bin_data["dimensions"]["width"]
-            bin_height = bin_data["dimensions"]["height"]
-            
-            # Ajout du conteneur
-            ax.add_patch(Rectangle((current_x, current_y), bin_width, bin_height, edgecolor='black', facecolor='none'))
-            
-            # Ajout des rectangles dans le bin
-            for rect in bin_data["rectangles"]:
-                if rect["rotation"] == 0:
-                    ax.add_patch(Rectangle((current_x + rect["x"], current_y + rect["y"]), rect["width"], rect["height"], edgecolor='blue', facecolor='lightblue'))
-                    # Ajout du numéro de rectangle
-                    ax.text(current_x + rect["x"] + rect["width"] / 2, current_y + rect["y"] + rect["height"] / 2, str(rect["id"]), color='black', fontsize=8, ha='center', va='center')
-                else:
-                    ax.add_patch(Rectangle((current_x + rect["x"], current_y + rect["y"]), rect["height"], rect["width"], angle=90, edgecolor='blue', facecolor='lightblue'))
-                    # Ajout du numéro de rectangle
-                    ax.text(current_x + rect["x"] + rect["height"] / 2, current_y + rect["y"] + rect["width"] / 2, str(rect["id"]), color='black', fontsize=8, ha='center', va='center')
-            
-            # Mise à jour de la position pour le prochain bin
-            current_x += bin_width 
-        
-        ax.set_aspect('equal', 'box')
-        ax.autoscale()
-        plt.show()
+        ax.set_xlim(0, bin_width)
+        ax.set_ylim(0, bin_height)
+        ax.set_title(f'Bin {i + 1}', fontsize=12)
+        ax.set_aspect('equal')
+        ax.invert_yaxis()  # Inverse l'axe y pour que l'origine soit en haut à gauche
 
-# Utilisation de la fonction pour charger et afficher la solution depuis un fichier JSON
-display_solution("testAffichage.json")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        
+        # Draw the bin border
+        ax.add_patch(patches.Rectangle((0, 0), bin_width, bin_height, edgecolor='black', facecolor='none'))
+        
+        # Liste des couleurs pour les rectangles
+        colors = plt.cm.tab20.colors  # Utilisation de la palette de couleurs 'tab20'
+        
+        for j, rect in enumerate(bin['rectangles']):
+            x, y = rect['x'], rect['y']
+            width, height = rect['width'], rect['height']
+            rect_id = rect['id']
+            color = colors[j % len(colors)]  # Utilisation d'une couleur différente pour chaque rectangle
+            
+            ax.add_patch(patches.Rectangle((x, y), width, height, edgecolor='black', facecolor=color, alpha=0.5))
+            ax.text(x + width / 2, y + height / 2, f'{rect_id}', ha='center', va='center', color='black', fontsize=8, fontweight='bold')
+    
+    # Masquer les axes des subplots non utilisés
+    for j in range(num_bins, len(axs)):
+        axs[j].axis('off')
+    
+    plt.tight_layout()
+    plt.show()
+
+
+def read_json_file(filename):
+    with open(filename, 'r') as f:
+        data = json.load(f)
+    return data
+
+#_______________________________________________________________________________________
+
+filename = 'output.json'
+data = read_json_file(filename)
+
+plot_binpacking(data)
+
+

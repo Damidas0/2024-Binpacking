@@ -14,7 +14,7 @@ public:
     void rotate();
 
     friend std::ostream &operator<<(std::ostream &out, const Item& i);
-    void serialize(std::ofstream& outputFile) const;
+   
 
 private:
 };

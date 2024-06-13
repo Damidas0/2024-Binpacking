@@ -37,7 +37,6 @@ void testBin()
     // Sérialiser l'objet Bin dans le fichier de sortie
     outputFile << "{\n";
     outputFile << "    \"bin\": ";
-    b.serialize(outputFile);
     outputFile << "\n}";
 
     // Fermer le fichier
@@ -51,13 +50,28 @@ void testjson()
 
     Solution s; 
     s.createNewBin(10,10);
-    Item i1(1, 2, 3);
-    s.setPosition(i1, Coordinate(0,0), s.listBin.front());
-
     s.createNewBin(10,10);
-    Item i2(2, 3, 4);
-    s.setPosition(i2, Coordinate(0,0), s.listBin.back());
 
+
+    //ajout de plein d'item pour faire un beau json de test
+
+    Item i1 (1,2,3);
+    Item i2 (2,3,4);
+    Item i3 (3,4,5);
+    Item i4 (4,5,6);
+    Item i5 (5,6,7);
+    Item i6 (6,7,8);
+
+
+    s.setPosition(i1, Coordinate(0,0), s.listBin.front());
+    //s.listBin.front().printIsFree();
+
+    s.setPosition(i2, Coordinate(5,5), s.listBin.front());
+    s.listBin.front().printIsFree();
+
+    s.setPosition(i3, Coordinate(0,0), s.listBin.back());
+    s.setPosition(i4, Coordinate(5,5), s.listBin.back());
+    
     s.dumpToJson("output.json");
 
 

@@ -12,21 +12,19 @@
 
 class Bin : public Rectangle{
     private:
+
+        
+    public:
         /**
          * @brief Liste des items dans le bin
          */
         std::list<Item> items;
         
-        
-    public:
         /**
          * @brief Constructeur de la classe Bin qui initialise la grille is_free et crée les bins avec les bonnes dimensions 
          */
         Bin(int width, int height);
-        /**
-         * @brief Fonction qui sérialise le bin dans un fichier de sortie
-         */
-        void serialize(std::ofstream& outputFile) const;
+
         /**
          * @brief Fonction qui renvoi le nombre de place libre dans le bin
          */
