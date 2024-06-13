@@ -22,7 +22,6 @@ void testBin()
     cout << b.freeSpace() << endl; //100
     cout << b.isFree(Coordinate(0,0)) << endl; //true
 
-    cout << b.listFreeCoordinates().size() << endl; //1 le coin en haut à gauche uniquement
 
 
 
@@ -38,7 +37,6 @@ void testBin()
     // Sérialiser l'objet Bin dans le fichier de sortie
     outputFile << "{\n";
     outputFile << "    \"bin\": ";
-    b.serialize(outputFile);
     outputFile << "\n}";
 
     // Fermer le fichier
@@ -46,41 +44,41 @@ void testBin()
 
     std::cout << "Sérialisation complétée avec succès dans output.json" << std::endl;}
 
-void testSolution()
+void testjson()
 {
-    Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
-    //m.printSpec(); 
+    //test ecrit correctement dans le fichier à partir de solutio
 
-    //création d'une solution
-    Solution s;
+    Solution s; 
+    s.createNewBin(10,10);
     s.createNewBin(10,10);
 
-    //placement des items
-    Item i1(5, 5, 1);
-    Item i2(3, 3, 2);
 
-    cout << s.listBin.empty() << endl; //false
+    //ajout de plein d'item pour faire un beau json de test
+
+    Item i1 (1,2,3);
+    Item i2 (2,3,4);
+    Item i3 (3,4,5);
+    Item i4 (4,5,6);
+    Item i5 (5,6,7);
+    Item i6 (6,7,8);
+
+
     s.setPosition(i1, Coordinate(0,0), s.listBin.front());
+    //s.listBin.front().printIsFree();
 
-    cout << s.listBin.size() << endl; //1
+    s.setPosition(i2, Coordinate(5,5), s.listBin.front());
+    s.listBin.front().printIsFree();
 
-    s.listBin.front().printIsFree(); //affiche la grille is_free
-
-    cout << s.listBin.front().isFree(Coordinate(0,0)) << endl; //false
-
-
+    s.setPosition(i3, Coordinate(0,0), s.listBin.back());
+    s.setPosition(i4, Coordinate(5,5), s.listBin.back());
+    
     s.dumpToJson("output.json");
-
-    cout << "Sérialisation complétée avec succès dans output.json" << endl;
-
-
-
 
 
 }
 
 int main() {
-    testSolution();
+    testjson();
 
     return 0;
     

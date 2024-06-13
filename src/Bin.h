@@ -12,6 +12,9 @@
 
 class Bin : public Rectangle{
     private:
+
+        
+    public:
         /**
          * @brief Liste des items dans le bin
          */
@@ -57,12 +60,7 @@ class Bin : public Rectangle{
         bool fit(Coordinate c, Item i); 
 
 
-        /**
-         * @brief Fonction qui renvoi la liste des coordonnées "non dominées" et libre en haut à gauche 
-         * @par C'est à dire que cette fonction renvoi les coordonnées qui sont libre uniquement s'il n'existe pas d'autres coordonnées libres plus en haut ET plus à gauche
-         * @return liste des coordonnées libres "non dominées" (dans un coin en haut à gauche)
-         */
-        std::list<Coordinate> listFreeCoordinates() const;
+  
 
         /**
          * @brief fonction qui affiche la grille is_free

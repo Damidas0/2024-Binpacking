@@ -11,41 +11,7 @@ Ennonce::Ennonce(std::string file_path) {
     parse_file(file_path);   
 }
 
-void Ennonce::dumpToJson(const std::string &file_path) const
-{
-    std::ofstream outputFile(file_path);
-    JsonWriter j;
-    if (outputFile.is_open()) {
-        outputFile << "{\n";
-        outputFile << j.writeLine("name", name);
-        outputFile << j.writeLine("comment", comment); 
-        outputFile << j.writeLine("nb_items", std::to_string(nb_items));
-        outputFile << j.writeLine("bin_width", std::to_string(bin_width)); 
-        outputFile << j.writeLine("bin_height", std::to_string(bin_height)); 
 
-
-        // Serialize items
-        outputFile << "\n    \"items\":\n    [\n ";
-        bool first = true;
-
-        for (const auto& item : items) {
-            if(!first) {
-                outputFile<<",";
-            }
-            item.serialize(outputFile);
-            outputFile<<"\n";
-            first = false;
-          
-        }
-        outputFile << "    ]\n";
-
-        outputFile << "}\n";
-        outputFile.close();
-        std::cout << "Fichier enregistré\n";
-    } else {
-        std::cerr << "Impossible d'ouvrir le fichier pour écrire le dump JSON.\n";
-    }
-}
 
 void Ennonce::parse_file(std::string file_path) {
     std::ifstream file(file_path);

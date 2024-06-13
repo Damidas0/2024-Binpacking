@@ -15,11 +15,7 @@ private:
     /**
      * @brief map qui associe un item à un bin
      */
-    std::unordered_map<Item, Bin*> map;
-    /**
-     * @brief Fonction qui renvoi la liste des coordonnées "non dominées" et libre en haut à gauche en utilisant la fonction listFreeCoordinates de Bin
-     */
-    std::list<Coordinate> listFreeCoordinates(Bin b);
+    std::unordered_map<Item, Bin*> map; 
     /**
      * @brief Fonction qui teste si un item peut être placé dans un bin à une certaine coordonnée en utilisant la fonction fit de Bin
      */
