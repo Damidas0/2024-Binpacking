@@ -11,10 +11,10 @@ bool Solution::fit(Item i, Coordinate c, Bin b)
 void Solution::createNewBin(int width, int height)
 {
     Bin b(width, height);
-    listBin.push_back(b);
+    listBin.push_front(b);
 }
 
-void Solution::setPosition(Item i, Coordinate c, Bin &b)
+void Solution::add(Item i, Coordinate c, Bin &b)
 {
     if (b.fit(c, i)) {
 
