@@ -29,8 +29,9 @@ void Solution::add(Item i, Coordinate c, Bin &b)
         }
     }
     else 
-    {
-        std::cerr << "Item cannot be placed at the given coordinates\n";
+    {   
+
+        std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
     }
 }
 
