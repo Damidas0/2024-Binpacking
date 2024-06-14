@@ -32,6 +32,7 @@ class Bin : public Rectangle{
         /**
          * @brief Grille (vector 2D booleen) qui indique si chaque case est occupée ou non
          * @warning bien penser à mettre à jour cette grille à chaque ajout d'item
+         * @remark width x height (pas l'inverse)
          */
         std::vector<std::vector<bool>> is_free; 
         /**
@@ -39,15 +40,13 @@ class Bin : public Rectangle{
          * @param c coordonnée de la case à tester
          * @return true si la case est libre, false sinon
          */
-        bool isFree(Coordinate c); 
-        /**
-         * @brief Fonction qui teste si un item peut être placé dans le bin à une certaine coordonnée
-         * @param c coordonnée de la case en haut à gauche de l'item
-         * @param i item à placer
-         * @return true si l'item peut être placé, false sinon
-         */
         bool fit(Coordinate c, Item i);
-        bool fitRotate(Coordinate c, Item i); 
+        bool fitRotate(Coordinate c, Item i);
+        /**
+         * @brief Fonction qui teste si un item peut être placé dans le bin à une certaine coordonnée peu importe la rotation 
+         * @param rotate booléen qui indique si l'item doit être tourné ou non qui est passé par référence et qui est modifié par la fonction
+         */
+        bool fitGlobal(Coordinate c, Item i, bool& rotate); 
 
 
   

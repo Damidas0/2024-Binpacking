@@ -8,64 +8,80 @@
 
 Bin::Bin(int width, int height) : Rectangle(width, height)
 {
-    this->is_free = std::vector<std::vector<bool>>(height, std::vector<bool>(width, true));
+    for (int i = 0; i < width; i++)
+    {
+        std::vector<bool> temp;
+        for (int j = 0; j < height; j++)
+        {
+            temp.push_back(true);
+        }
+        is_free.push_back(temp);
+    }
 }
 
-
-
-bool Bin::fit(Coordinate c, Item i) //on check les coordonnées en haut à gauche et on teste si ça rentre 
+int Bin::freeSpace() const
 {
-    for (int y = c.getY(); y < c.getY() + i.getHeight(); ++y)
+    int res = 0;
+    for (int i = 0; i < this->getWidth(); i++)
     {
-        for (int x = c.getX(); x < c.getX() + i.getWidth(); ++x)
+        for (int j = 0; j < getHeight(); j++)
         {
-            if (x >= this->getWidth() || y >= this->getHeight() || !this->is_free[y][x])
+            if (is_free[i][j])
+            {
+                res++;
+            }
+        }
+    }
+    return res;
+}
+
+bool Bin::fit(Coordinate c, Item it)
+{
+    for (int i = c.getX(); i < c.getX() + it.getWidth(); i++)
+    {
+        for (int j = c.getY(); j < c.getY() + it.getHeight(); j++)
+        {
+            if (this->is_free[i][j] == false)
             {
                 return false;
             }
         }
     }
-
     return true;
-
 }
-bool Bin::fitRotate(Coordinate c, Item i) //on réutilise la fonction fit mais on inverse les dimensions de l'item
+
+bool Bin::fitRotate(Coordinate c, Item i) //l'objet I ne doit pas être modifié 
 {
-
-    return this->fit(c, Item(i.getHeight(), i.getWidth(), 0)); //l'id ici n'a pas d'importance
-
+    Item rotatedItem = i; // Copie de l'objet i
+    rotatedItem.rotate(); // Rotation de la copie
+    return fit(c, rotatedItem); // Test de la copie
 }
 
-
-
-
-
-int Bin::freeSpace() const {
-    int width = this->getWidth();
-    int height = this->getHeight();
-    int free_space = 0;
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            if (this->is_free[y][x]) {
-                free_space++;
-            }
-        }
+bool Bin::fitGlobal(Coordinate c, Item i, bool &rotate)
+{
+    if (fit(c, i))
+    {
+        rotate = false;
+        return true;
     }
-    return free_space;
-
+    else if (fitRotate(c, i))
+    {
+        rotate = true;
+        return true;
+    }
+    return false;
 }
 
-bool Bin::isFree(Coordinate c) {
-    return this->is_free[c.getY()][c.getX()];
-}
-
-void Bin::printIsFree() const {
-    int width = this->getWidth();
-    int height = this->getHeight();
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            std::cout << this->is_free[y][x] << " ";
+void Bin::printIsFree() const
+{
+    for (int i = 0; i < this->getWidth(); i++)
+    {
+        for (int j = 0; j < getHeight(); j++)
+        {
+            std::cout << is_free[i][j] << " ";
         }
         std::cout << std::endl;
     }
 }
+
+

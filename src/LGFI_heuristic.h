@@ -14,7 +14,7 @@ public:
     /**
      * @brief Constructeur de la classe LGFi_heuristic qui prend en entrée une liste ordonnée d'items et les dimensions du bin
      */
-    LGFI_heuristic(std::list<Item> items, int bin_width, int bin_height);
+    LGFI_heuristic(const std::list<Item>& items, int bin_width, int bin_height);
 
     /**
      * renvoie une solution
