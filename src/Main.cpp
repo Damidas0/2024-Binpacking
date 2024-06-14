@@ -82,7 +82,7 @@ void testjson()
 void testLGFI()
 {
     //test de LGFI
-    Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
+    Ennonce m("data/binpacking2d/binpacking2d-01.bp2d");
     m.printSpec();
 
     AlgoNaive a(m);
