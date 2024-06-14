@@ -57,7 +57,8 @@ class Bin : public Rectangle{
          * @param i item à placer
          * @return true si l'item peut être placé, false sinon
          */
-        bool fit(Coordinate c, Item i); 
+        bool fit(Coordinate c, Item i);
+        bool fitRotate(Coordinate c, Item i); 
 
 
   

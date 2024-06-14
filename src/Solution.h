@@ -44,7 +44,7 @@ public:
      * @param b bin dans lequel on veut placer l'item (fait partie de la liste de bins de la solution)
      * @par Cette fonction appelle la fonction fit de Bin pour tester si l'item peut être placé à la coordonnée donnée et le place si c'est le cas en mettant à jour la map et la liste is_free du bin
      */
-    void setPosition(Item i, Coordinate c, Bin& b);
+    void add(Item i, Coordinate c, Bin& b);
     
     /**
      * @brief Fonction qui crée un nouveau bin avec les dimensions données (comme ça sera la classe Algo qui stocke l'énoncé on passe les dimensions en paramètre)

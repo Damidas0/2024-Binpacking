@@ -55,6 +55,12 @@ bool Bin::fit(Coordinate c, Item i) //on check les coordonnées en haut à gauch
     return true;
 
 }
+bool Bin::fitRotate(Coordinate c, Item i) //on réutilise la fonction fit mais on inverse les dimensions de l'item
+{
+
+    return this->fit(c, Item(i.getHeight(), i.getWidth(), 0)); //l'id ici n'a pas d'importance
+
+}
 
 
 
