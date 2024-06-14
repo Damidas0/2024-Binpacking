@@ -47,6 +47,7 @@ class Bin : public Rectangle{
          * @param rotate booléen qui indique si l'item doit être tourné ou non qui est passé par référence et qui est modifié par la fonction
          */
         bool fitGlobal(Coordinate c, Item i, bool& rotate); 
+        void add(Item i, Coordinate c);
 
 
   
