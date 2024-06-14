@@ -42,7 +42,7 @@ Solution LGFI_heuristic::solve()
 
             // Si l'item rentre dans le freespace courant
             bool rotate = false;
-            bool fit = true; ///current_fs->fitGlobal(current_fs->topLeft, item, rotate);
+            bool fit = current_fs->fitGlobal(current_fs->topLeft, item, rotate);
 
             std::cout << "Fit: " << fit << " need to rotate: " << rotate << "\n";
 

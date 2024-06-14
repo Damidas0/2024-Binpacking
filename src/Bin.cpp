@@ -57,20 +57,23 @@ bool Bin::fitRotate(Coordinate c, Item i) //l'objet I ne doit pas être modifié
     return fit(c, rotatedItem); // Test de la copie
 }
 
-bool Bin::fitGlobal(Coordinate c, Item i, bool &rotate)
+
+bool Bin::fitGlobal(const Coordinate& topLeft, const Item& item, bool& rotate) const
 {
-    if (fit(c, i))
-    {
+    // Vérifier si l'item rentre sans rotation
+    if (item.getWidth() <= getWidth() && item.getHeight() <= getHeight()) {
         rotate = false;
         return true;
     }
-    else if (fitRotate(c, i))
-    {
+    // Vérifier si l'item rentre avec rotation
+    if (item.getHeight() <= getWidth() && item.getWidth() <= getHeight()) {
         rotate = true;
         return true;
     }
     return false;
 }
+
+
 
 void Bin::printIsFree() const
 {

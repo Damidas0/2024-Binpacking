@@ -16,7 +16,7 @@ using namespace std;
 void testLGFI()
 {
     //test de LGFI
-    Ennonce m("data/binpacking2d/binpacking2d-00.bp2d");
+    Ennonce m("data/binpacking2d/binpacking2d-01.bp2d");
     m.printSpec();
 
     AlgoNaive a(m);
@@ -61,6 +61,14 @@ void testBin()
 
  
 
+
+}
+void testFit()
+{
+    FreeSpace fs = FreeSpace(5, 5, Coordinate(0, 0));
+    Item i1(1, 5, 5);
+    bool rotate = false;
+    cout << fs.fitGlobal(fs.topLeft, i1, rotate) << endl;
 
 }
 int main() {
