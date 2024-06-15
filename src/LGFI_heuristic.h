@@ -21,6 +21,14 @@ public:
      */
     Solution solve();
 
+
+    /**
+     * @brief Fonction qui place un item dans un bin à une certaine coordonnée
+     * @warning Il faut avoir fait en amont les tests pour vérifier que l'item rentre bien dans le bin
+     */
+    void placeItemAndHandleFs(Solution& solution, Item item, std::list<Item>::iterator it, bool& itemPlacedFlag);
+
+
     
 
 

@@ -12,31 +12,26 @@ void Solution::createNewBin(int width, int height)
 {
     Bin b(width, height);
     listBin.push_front(b);
+    nbBins++;
 }
 
-void Solution::add(Item i, Coordinate c, Bin &b) 
+float Solution::Fitness() const
 {
-    if (b.fit(c, i)) {
+    int res = nbBins; 
+    std::cout << "nbBins: " << nbBins << std::endl;
+    
+    float lastFilling = listBin.front().freeSpace()/listBin.front().getArea();
+    std::cout << "lastFilling: " << lastFilling << std::endl;
 
-
-        map[i] = &b;
-        b.items.push_back(i);
-
-        for (int x = c.getX(); x < c.getX() + i.getWidth(); x++) {
-            for (int y = c.getY(); y <c.getY() + i.getHeight(); y++) {
-                b.is_free[x][y] = false;
-            }
-        }
-    }
-    else 
-    {   
-
-        std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
-    }
+    return res + lastFilling;
 }
+
+
+
 
 Solution::Solution()
 {
+    nbBins = 0; 
 
 }
 

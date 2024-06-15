@@ -15,7 +15,8 @@ private:
     /**
      * @brief map qui associe un item à un bin
      */
-    std::unordered_map<Item, Bin*> map; 
+    //std::unordered_map<Item, Bin*> map; 
+
     /**
      * @brief Fonction qui teste si un item peut être placé dans un bin à une certaine coordonnée en utilisant la fonction fit de Bin
      */
@@ -30,6 +31,17 @@ public:
      * @brief Destructeur de la classe Solution qui fait pas grand chose pour l'instant
      */
     ~Solution();
+    /**
+     * @brief Nombre de bins
+     */
+    int nbBins;
+
+    /**
+     * @brief Fonction qui évalue la solution en sommant le nombre de places libres dans chaque bin + le remplissage de la dernière bin
+     */
+    float Fitness() const;
+    
+
     /**
      * @brief Fonction qui sérialise la solution dans un fichier de sortie
      */

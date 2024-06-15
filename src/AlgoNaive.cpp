@@ -19,6 +19,8 @@ void AlgoNaive::run()
     this->m_solution = lgfi.solve();
     this->m_solution.dumpToJson("output.json");
 
+    std::cout << "fitness: " << this->m_solution.Fitness() << std::endl;
+
     std::cout << "Solution dumped to output.json" << std::endl;
     
 
