@@ -6,6 +6,7 @@
 #include "Solution.h"
 #include "AlgoNaive.h"
 #include "FreeSpace.h"
+#include "Testing.h"
 
 using namespace std;
 
@@ -16,8 +17,9 @@ using namespace std;
 void testLGFI()
 {
     //test de LGFI
-    Ennonce m("data/binpacking2d/binpacking2d-13.bp2d");
+    Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
     m.printSpec();
+
 
     AlgoNaive a(m);
     a.run();
@@ -25,43 +27,21 @@ void testLGFI()
 
 
 
+
 }
 
-void testBin()
+void testNaive()
 {
-    //test de Bin
-    Bin b(10, 10);
-    Item i1(1, 5, 5);
-    Item i2(2, 5, 5);
-    Item i3(3, 5, 5);
-    Item i4(4, 5, 5);
+    AlgoNaive algo(Ennonce("data/binpacking2d/binpacking2d-00.bp2d")); //pour l'instant on lui donne un faux path mais il faudra faire le contructeur par défaut
 
-    b.add(i1, Coordinate(0, 0));
-    b.printIsFree();
-    cout << "-------------------" << endl;
-    cout << b.fit(Coordinate(5, 0), i2) << endl;
-    b.add(i2, Coordinate(5, 0));
-    b.printIsFree();
-    cout << "-------------------" << endl;
+    std::string file_path = "results/resultsNaive_StrategyshorterLeftover.json";
 
-    b.add(i3, Coordinate(0, 5));
-    b.printIsFree();
-    cout << "-------------------" << endl;
+    Testing tester;
+    tester.dumpSolutionAllInstances(algo, file_path);
 
-    b.add(i4, Coordinate(5, 5));
-    b.printIsFree();
-    cout << "-------------------" << endl;
-
-
-    Bin b2(5,5); 
-    b2.printIsFree();
-    cout << "-------------------" << endl;
-    b2.add(i1, Coordinate(0, 0));
-    b2.printIsFree();
-
- 
-
-
+    // Vérification et gestion des erreurs
+    // Ici, vous pouvez ajouter du code pour vérifier si le fichier a été correctement créé,
+    // gérer les exceptions, etc.
 }
 void testFit()
 {
@@ -75,14 +55,4 @@ int main() {
     testLGFI();
 
     return 0;
-    
-
-    
-
-
-
-
-
-
-
 }

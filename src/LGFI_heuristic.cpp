@@ -30,26 +30,26 @@ Solution LGFI_heuristic::solve()
 
         //gestion du perfect fit, si un item a exactement un dimension égale à la width du freespace teste de le placer
 
-        // for (auto it = this->items.begin(); it != this->items.end(); ++it)
-        // {
-        //     Item item = *it;
-        //     if (current_fs->getWidth() == item.getWidth() || current_fs->getWidth() == item.getHeight())
-        //     {
-        //         bool rotate = false;
-        //         bool fit = current_fs->fitGlobal(current_fs->topLeft, item, rotate);
-        //         if (fit)
-        //         {
-        //             std::cout << "Perfect fit\n";
-        //             if (rotate)
-        //             {   
-        //                 std::cout << "Rotating item\n";
-        //                 item.rotate();
-        //             }
-        //             placeItemAndHandleFs(solution, item, it, itemPlacedFlag);
-        //             break;
-        //         }
-        //     }
-        // }
+        for (auto it = this->items.begin(); it != this->items.end(); ++it)
+        {
+            Item item = *it;
+            if (current_fs->getWidth() == item.getWidth() || current_fs->getWidth() == item.getHeight())
+            {
+                bool rotate = false;
+                bool fit = current_fs->fitGlobal(current_fs->topLeft, item, rotate);
+                if (fit)
+                {
+                    std::cout << "Perfect fit\n";
+                    if (rotate)
+                    {   
+                        std::cout << "Rotating item\n";
+                        item.rotate();
+                    }
+                    placeItemAndHandleFs(solution, item, it, itemPlacedFlag);
+                    break;
+                }
+            }
+        }
 
         if (!itemPlacedFlag) {
 
@@ -122,8 +122,8 @@ void LGFI_heuristic::placeItemAndHandleFs(Solution& solution, Item item, std::li
                 // On supprime le freespace courant
                 free_spaces.pop_front();
 
-                //stratégie Longer left over 
-                bool horizontal = (w-item.getWidth()> h-item.getHeight());
+                //stratégie shorter left over 
+                bool horizontal = (w-item.getWidth() < h-item.getHeight());
 
                 if (horizontal)
                 {

@@ -36,7 +36,7 @@ def plot_binpacking(data):
             x, y = rect['x'], rect['y']
             width, height = rect['width'], rect['height']
             rect_id = rect['id']
-            color = colors[j % len(colors)]  # Utilisation d'une couleur différente pour chaque rectangle
+            color = colors[j+i % len(colors)]  # Utilisation d'une couleur différente pour chaque rectangle
             
             ax.add_patch(patches.Rectangle((x, y), width, height, edgecolor='black', facecolor=color, alpha=0.5))
             ax.text(x + width / 2, y + height / 2, f'{rect_id}', ha='center', va='center', color='black', fontsize=8, fontweight='bold')
