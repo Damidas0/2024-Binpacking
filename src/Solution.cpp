@@ -19,11 +19,18 @@ float Solution::Fitness() const
 {
     int res = nbBins; 
     std::cout << "nbBins: " << nbBins << std::endl;
-    
-    float lastFilling = listBin.front().freeSpace()/listBin.front().getArea();
-    std::cout << "lastFilling: " << lastFilling << std::endl;
+    float fillingLstBin = listBin.front().freeSpace();
+    float areaBin = listBin.front().getArea();
+    float lastFilling = fillingLstBin/areaBin;
 
-    return res + lastFilling;
+    std::cout <<"freespace in last bin: " << listBin.front().freeSpace() << std::endl;
+    std::cout << "area of last bin: " << listBin.front().getArea() << std::endl;
+    std::cout << "lastFilling: " << lastFilling << std::endl;
+    std::cout << "fitness (nbBins + lastFilling): " << res + lastFilling << std::endl;
+
+
+
+    return res + lastFilling; 
 }
 
 

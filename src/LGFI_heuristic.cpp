@@ -98,6 +98,7 @@ Solution LGFI_heuristic::solve()
         {
             solution.createNewBin(bin_width, bin_height);
             free_spaces.push_front(FreeSpace(bin_width, bin_height, Coordinate(0, 0)));
+            
         }
     }
 
