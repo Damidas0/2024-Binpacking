@@ -30,26 +30,26 @@ Solution LGFI_heuristic::solve()
 
         //gestion du perfect fit, si un item a exactement un dimension égale à la width du freespace teste de le placer
 
-        for (auto it = this->items.begin(); it != this->items.end(); ++it)
-        {
-            Item item = *it;
-            if (current_fs->getWidth() == item.getWidth() || current_fs->getWidth() == item.getHeight())
-            {
-                bool rotate = false;
-                bool fit = current_fs->fitGlobal(current_fs->topLeft, item, rotate);
-                if (fit)
-                {
-                    std::cout << "Perfect fit\n";
-                    if (rotate)
-                    {   
-                        std::cout << "Rotating item\n";
-                        item.rotate();
-                    }
-                    placeItemAndHandleFs(solution, item, it, itemPlacedFlag);
-                    break;
-                }
-            }
-        }
+        // for (auto it = this->items.begin(); it != this->items.end(); ++it)
+        // {
+        //     Item item = *it;
+        //     if (current_fs->getWidth() == item.getWidth() || current_fs->getWidth() == item.getHeight())
+        //     {
+        //         bool rotate = false;
+        //         bool fit = current_fs->fitGlobal(current_fs->topLeft, item, rotate);
+        //         if (fit)
+        //         {
+        //             std::cout << "Perfect fit\n";
+        //             if (rotate)
+        //             {   
+        //                 std::cout << "Rotating item\n";
+        //                 item.rotate();
+        //             }
+        //             placeItemAndHandleFs(solution, item, it, itemPlacedFlag);
+        //             break;
+        //         }
+        //     }
+        // }
 
         if (!itemPlacedFlag) {
 
@@ -98,7 +98,7 @@ Solution LGFI_heuristic::solve()
         {
             solution.createNewBin(bin_width, bin_height);
             free_spaces.push_front(FreeSpace(bin_width, bin_height, Coordinate(0, 0)));
-            
+
         }
     }
 
@@ -122,18 +122,38 @@ void LGFI_heuristic::placeItemAndHandleFs(Solution& solution, Item item, std::li
                 // On supprime le freespace courant
                 free_spaces.pop_front();
 
-                // On teste si on peut ajouter des freespace à gauche et en bas de l'item
-                // Pour l'instant on coupe toujours horizontalement
-                // Freespace en bas
-                if (h - item.getHeight() > 0) {
-                    free_spaces.push_front(FreeSpace(w, h - item.getHeight(), Coordinate(x, y + item.getHeight())));
-                    std::cout << "Bottom free space added: (" << w << ", " << h - item.getHeight() << ") at (" << x << ", " << y + item.getHeight() << ")\n";
+                //stratégie Longer left over 
+                bool horizontal = (w-item.getWidth()> h-item.getHeight());
+
+                if (horizontal)
+                {
+                    std::cout << "Horizontal cut\n";
+                    // Freespace en bas
+                    if (h - item.getHeight() > 0) {
+                        free_spaces.push_front(FreeSpace(w, h - item.getHeight(), Coordinate(x, y + item.getHeight())));
+                        std::cout << "Bottom free space added: (" << w << ", " << h - item.getHeight() << ") at (" << x << ", " << y + item.getHeight() << ")\n";
+                    }
+                    // Freespace à droite
+                    if (w - item.getWidth() > 0) {
+                        free_spaces.push_front(FreeSpace(w - item.getWidth(), item.getHeight(), Coordinate(x + item.getWidth(), y)));
+                        std::cout << "Right free space added: (" << w - item.getWidth() << ", " << item.getHeight() << ") at (" << x + item.getWidth() << ", " << y << ")\n";
+                    }
                 }
-                // Freespace à droite
-                if (w - item.getWidth() > 0) {
-                    free_spaces.push_front(FreeSpace(w - item.getWidth(), item.getHeight(), Coordinate(x + item.getWidth(), y)));
-                    std::cout << "Right free space added: (" << w - item.getWidth() << ", " << item.getHeight() << ") at (" << x + item.getWidth() << ", " << y << ")\n";
+                else // coupe verticale
+                {
+                    std::cout << "Vertical cut\n";
+                    // Freespace en bas
+                    if (h - item.getHeight() > 0) {
+                        free_spaces.push_front(FreeSpace(w, h - item.getHeight(), Coordinate(x, y + item.getHeight())));
+                        std::cout << "Bottom free space added: (" << w << ", " << h - item.getHeight() << ") at (" << x << ", " << y + item.getHeight() << ")\n";
+                    }
+                    // Freespace à droite
+                    if (w - item.getWidth() > 0) {
+                        free_spaces.push_front(FreeSpace(w - item.getWidth(),h , Coordinate(x + item.getWidth(), y)));
+                        std::cout << "Right free space added: (" << w - item.getWidth() << ", " <<h<< ") at (" << x + item.getWidth() << ", " << y << ")\n";
+                    }
                 }
+            
 
                 std::cout << "Number of freeSpaces in the list: " << free_spaces.size() << "\n";
 

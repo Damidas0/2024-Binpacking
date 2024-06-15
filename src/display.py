@@ -2,14 +2,14 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import MaxNLocator
-import json
 
 def plot_binpacking(data):
     bins = data['bins']
     
     num_bins = len(bins)
-    num_rows = (num_bins + 4) // 6  # Calcul du nombre de lignes pour la disposition des bins
-    fig, axs = plt.subplots(num_rows, 6, figsize=(4 * 6, 4 * num_rows))
+    num_cols = 6  # Nombre de colonnes fixes
+    num_rows = (num_bins + num_cols - 1) // num_cols  # Calcul du nombre de lignes nécessaires
+    fig, axs = plt.subplots(num_rows, num_cols, figsize=(4 * num_cols, 4 * num_rows))
     axs = axs.flatten()
     
     for i, bin in enumerate(bins):
@@ -36,7 +36,7 @@ def plot_binpacking(data):
             x, y = rect['x'], rect['y']
             width, height = rect['width'], rect['height']
             rect_id = rect['id']
-            color = colors[j+i% len(colors)]  # Utilisation d'une couleur différente pour chaque rectangle
+            color = colors[j % len(colors)]  # Utilisation d'une couleur différente pour chaque rectangle
             
             ax.add_patch(patches.Rectangle((x, y), width, height, edgecolor='black', facecolor=color, alpha=0.5))
             ax.text(x + width / 2, y + height / 2, f'{rect_id}', ha='center', va='center', color='black', fontsize=8, fontweight='bold')
@@ -47,7 +47,6 @@ def plot_binpacking(data):
     
     plt.tight_layout()
     plt.show()
-
 
 def read_json_file(filename):
     with open(filename, 'r') as f:
@@ -60,5 +59,3 @@ filename = 'output.json'
 data = read_json_file(filename)
 
 plot_binpacking(data)
-
-
