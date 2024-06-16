@@ -55,7 +55,7 @@ def read_json_file(filename):
 
 #_______________________________________________________________________________________
 
-filename = 'results/output.json'
+filename = 'best_solution.json'
 data = read_json_file(filename)
 
 plot_binpacking(data)

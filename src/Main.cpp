@@ -70,7 +70,7 @@ void testSimulatedAnnealing()
 
 void testGenet()
 {
-    // test de SimulatedAnnealing
+    // test de l'algo génétique
     Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
     m.printSpec();
     AlgoGenetique g(m, 20, 20, 0.05);
@@ -89,7 +89,7 @@ void testing()
 
 
 int main() {
-    testLGFI();
+    testGenet();
 
 
 }

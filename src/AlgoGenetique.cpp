@@ -36,7 +36,6 @@ void AlgoGenetique::initialize_population()
         std::shuffle(items.begin(), items.end(), rng);
         population.push_back(items);
     }
-    std::cout<<"Youpla g passe la boucle " <<std::endl;
 }
 
 void AlgoGenetique::evaluate_population()
@@ -46,7 +45,7 @@ void AlgoGenetique::evaluate_population()
     {
         LGFI_heuristic lgfi(individual, m_enonce.bin_width, m_enonce.bin_height);
         Solution solution = lgfi.solve();
-        fitness.push_back(1.0 / solution.getNumberOfBins());
+        fitness.push_back(solution.Fitness());
     }
 }
 
