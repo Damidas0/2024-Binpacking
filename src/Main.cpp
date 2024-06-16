@@ -41,9 +41,7 @@ void testNaive()
     Testing tester;
     tester.dumpSolutionAllInstances(algo, file_path);
 
-    // Vérification et gestion des erreurs
-    // Ici, vous pouvez ajouter du code pour vérifier si le fichier a été correctement créé,
-    // gérer les exceptions, etc.
+
 }
 void testFit()
 {
@@ -55,13 +53,16 @@ void testFit()
 }
 void testSimulatedAnnealing()
 {
-    //test de SimulatedAnnealing
-    Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
-    m.printSpec();
 
-    SimulatedAnnealing t(m);
-    t.run();
-    
+
+    SimulatedAnnealing algo(Ennonce("data/binpacking2d/binpacking2d-01.bp2d"));
+    algo.run();
+    algo.m_solution.dumpToJson("results/outputs");
+
+
+
+
+
 
 
 
@@ -70,8 +71,17 @@ void testSimulatedAnnealing()
 
 }
 
+void testing()
+{   
+
+    SimulatedAnnealing algo(Ennonce("data/binpacking2d/binpacking2d-00.bp2d"));
+    Testing test; 
+    test.dumpSolutionAllInstances(algo, "results/resultsSimulatedAnnealingAllinstances.json");
+}
+
+
 int main() {
     testSimulatedAnnealing();
 
-    return 0;
+
 }

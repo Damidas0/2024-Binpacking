@@ -4,16 +4,20 @@
 
 SimulatedAnnealing::SimulatedAnnealing(Ennonce enonce): AlgoAbstract(enonce)
 {
+    initialize();
+}
+
+void SimulatedAnnealing::initialize()
+{
     CurrentList = m_enonce.items;
     int bin_width = m_enonce.bin_width;
     int bin_height = m_enonce.bin_height;
 
+
+
     //on part de la solution de lalgo naif cad de lgfi avec une liste triée 
 
-
-
     this->CurrentList.sort([](Item a, Item b) { return a.getArea() > b.getArea(); });
-
 
     //on initialise lgfi
     LGFI_heuristic lgfi(this->CurrentList, bin_width, bin_height);
@@ -21,10 +25,12 @@ SimulatedAnnealing::SimulatedAnnealing(Ennonce enonce): AlgoAbstract(enonce)
     this->m_solution = lgfi.solve();
     this->Current = this->m_solution;
 
-    
+    //paramètre de l'algo
     temperature = 5;
     lambda = 0.999;
+    iterations = 500; 
 }
+
 
 std::list<Item> SimulatedAnnealing::generateNeighbor() {
     std::list<Item> neighbor = CurrentList; // Fait une copie de CurrentList
@@ -87,7 +93,8 @@ void SimulatedAnnealing::run()
             double r = (double)rand() / RAND_MAX;
             if (p>r)
             {
-         
+
+                Current = neighborSolution;
                 CurrentList = neighbor;
                 stats_worse++;
 
@@ -96,6 +103,10 @@ void SimulatedAnnealing::run()
         }
         temperature *= lambda;
         compteur++;
+        if (compteur % 10 == 0)
+        {
+            fitness_values.push_back(Current.Fitness());
+        }
         if (compteur % 100 == 0)
         {
            
@@ -111,9 +122,46 @@ void SimulatedAnnealing::run()
             stats_worse = 0;
 
         }
+        if (compteur == iterations )
+        {
+            break;
+        }
     }
     m_solution.dumpToJson("output.json");
     std::cout << "Solution dumped to output.json" << std::endl;
 
+}
+
+
+void SimulatedAnnealing::DumpFitnessValues(std::string file_path)
+{
+    std::ofstream outputFile(file_path);
+        if (outputFile.is_open()) {
+            outputFile << "{\n";
+            outputFile << "    \"fitness_values\": [\n";
+            bool firstValue = true;
+            for (const auto& value : fitness_values) {
+                if (!firstValue) {
+                    outputFile << ",\n";
+                }
+                outputFile << "        " << value;
+                firstValue = false;
+            }
+            outputFile << "\n    ]\n";
+            outputFile << "}\n";
+            outputFile.close();
+
+            std::cout << "JSON file has been saved\n";
+        } else {
+            std::cerr << "Unable to open the file for writing JSON dump.\n";
+    }
+
+}
+
+void SimulatedAnnealing::updateEnnonce(Ennonce enonce)
+{
+    m_enonce = enonce;
+    initialize();
+    std::cout << "Enoncé mis à jour" << std::endl;
 }
 
