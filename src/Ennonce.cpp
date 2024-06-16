@@ -7,11 +7,15 @@
 #include "Ennonce.h"
 #include "JsonWriter.h"
 
-Ennonce::Ennonce(std::string file_path) {
-    parse_file(file_path);   
+std::list<Item> Ennonce::getItems()
+{
+    return this->items;
 }
 
-
+Ennonce::Ennonce(std::string file_path)
+{
+    parse_file(file_path);
+}
 
 void Ennonce::parse_file(std::string file_path) {
     std::ifstream file(file_path);

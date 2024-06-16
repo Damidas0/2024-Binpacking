@@ -14,6 +14,16 @@ void Item::rotate() {
     setHeight(temp);
 }
 
+void Item::serialize(std::ofstream& outputFile)  const{
+    
+    JsonWriter j;
+    outputFile  << "        {\n";
+    outputFile  << j.writeLine("id", std::to_string(m_id), false, 1);
+    outputFile  << j.writeLine("width", std::to_string(getWidth()), false, 1);
+    
+    outputFile  << j.writeLine("height", std::to_string(getHeight()), true, 1);
+    outputFile  << "        }";
+}
 
 std::ostream &operator<<(std::ostream &out, const Item& i)
 {

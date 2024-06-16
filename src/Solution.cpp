@@ -15,6 +15,12 @@ void Solution::createNewBin(int width, int height)
     nbBins++;
 }
 
+int Solution::getNumberOfBins()
+{
+    return this->listBin.size();
+}
+
+//void Solution::add(Item i, Coordinate c, Bin &b)
 float Solution::Fitness() const
 {
     int res = nbBins; 

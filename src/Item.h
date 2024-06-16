@@ -12,6 +12,9 @@ public:
     Coordinate topLeft;
     int m_id; 
     void rotate();
+    
+
+    void serialize(std::ofstream & outputFile) const;
 
     friend std::ostream &operator<<(std::ostream &out, const Item& i);
    

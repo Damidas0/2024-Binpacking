@@ -17,6 +17,8 @@ public:
      */
     LGFI_heuristic(const std::list<Item>& items, int bin_width, int bin_height);
 
+    LGFI_heuristic(const std::vector<Item>& items, int bin_width, int bin_height);
+
     /**
      * renvoie une solution
      */

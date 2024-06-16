@@ -12,6 +12,36 @@ Bin::Bin(int width, int height) : Rectangle(width, height)
 
 }
 
+void Bin::serialize(std::ofstream &outputFile) const
+{
+    JsonWriter j;
+
+    outputFile << "        {\n";
+    outputFile << j.writeLine("width", std::to_string(this->getWidth()), false, 1);
+    outputFile << j.writeLine("height", std::to_string(this->getHeight()), false, 1);
+    outputFile << "            \"items\": [\n";
+    bool first = true;
+    for (const auto &item : items)
+    {
+        std::cout << "aaaaa";
+        if (!first)
+        {
+            outputFile << ",\n";
+        }
+        item.serialize(outputFile);
+        first = false;
+    }
+    outputFile << "\n            ]\n";
+    outputFile << "        }";
+}
+
+void Bin::addItem(Item i)
+{
+    items.push_back(i);
+}
+
+//bool Bin::fit(Coordinate c, Item i) //on check les coordonnées en haut à gauche et on teste si ça rentre 
+
 int Bin::freeSpace() const
 {
     int freeCount = 0;
