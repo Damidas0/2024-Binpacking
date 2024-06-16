@@ -14,6 +14,11 @@ void Solution::createNewBin(int width, int height)
     listBin.push_front(b);
 }
 
+int Solution::getNumberOfBins()
+{
+    return this->listBin.size();
+}
+
 void Solution::add(Item i, Coordinate c, Bin &b)
 {
     if (b.fit(c, i)) {

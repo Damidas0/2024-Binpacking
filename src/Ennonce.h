@@ -38,6 +38,7 @@ public:
      * @brief Liste des items à placer
      */
     std::list<Item> items; 
+    std::list<Item> getItems(); 
     Ennonce(std::string file_path);
     void printSpec();
     friend std::ostream &operator<<(std::ostream &out, Ennonce &m);

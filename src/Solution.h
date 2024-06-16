@@ -64,6 +64,13 @@ public:
      * @brief list des bins de la solution
      */
     std::list<Bin> listBin;
+
+    /**
+     * @brief Get the Number Of Bins 
+     * 
+     * @return int 
+     */
+    int getNumberOfBins();
     
 
 };
