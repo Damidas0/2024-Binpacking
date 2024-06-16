@@ -18,18 +18,18 @@ void Solution::createNewBin(int width, int height)
 float Solution::Fitness() const
 {
     int res = nbBins; 
-    std::cout << "nbBins: " << nbBins << std::endl;
+    //std::cout << "nbBins: " << nbBins << std::endl;
     float fillingLstBin = listBin.front().getArea() - listBin.front().freeSpace();
     float areaBin = listBin.front().getArea();
     float lastFilling = fillingLstBin/areaBin;
 
     
-    std::cout <<"freespace in last bin: " << listBin.front().freeSpace() << std::endl;
-    std::cout << "area of last bin: " << listBin.front().getArea() << std::endl;
-    std::cout << "lastFilling: " << lastFilling << std::endl;
-    std::cout << "fitness (nbBins -1 + lastFilling): " << res-1 + lastFilling << std::endl; //on mets le nombre de bins-1 comme ça on a un nombre de bins correct et on ajoute le remplissage de la dernière bin, pour avoir le nombre de bins total on arrondis au supérieur
+    // std::cout <<"freespace in last bin: " << listBin.front().freeSpace() << std::endl;
+    // std::cout << "area of last bin: " << listBin.front().getArea() << std::endl;
+    // std::cout << "lastFilling: " << lastFilling << std::endl;
+    // std::cout << "fitness (nbBins -1 + lastFilling): " << res-1 + lastFilling << std::endl; //on mets le nombre de bins-1 comme ça on a un nombre de bins correct et on ajoute le remplissage de la dernière bin, pour avoir le nombre de bins total on arrondis au supérieur
 
-    return res + lastFilling; 
+    return res - 1 + lastFilling; 
 }
 
 

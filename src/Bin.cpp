@@ -103,7 +103,7 @@ void Bin::add(Item i, Coordinate c)
     }
     else
     {
-        std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
+        //std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
     }
 }
 

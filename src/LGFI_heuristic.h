@@ -1,3 +1,4 @@
+#pragma once
 #include "Coordinate.h"
 #include <list>
 #include "Item.h"

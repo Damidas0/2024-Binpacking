@@ -7,6 +7,8 @@
 #include "AlgoNaive.h"
 #include "FreeSpace.h"
 #include "Testing.h"
+#include "SimulatedAnnealing.h"
+#include "TabouSearch.h"
 
 using namespace std;
 
@@ -51,8 +53,25 @@ void testFit()
     cout << fs.fitGlobal(fs.topLeft, i1, rotate) << endl;
 
 }
+void testSimulatedAnnealing()
+{
+    //test de SimulatedAnnealing
+    Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
+    m.printSpec();
+
+    SimulatedAnnealing t(m);
+    t.run();
+    
+
+
+
+
+
+
+}
+
 int main() {
-    testLGFI();
+    testSimulatedAnnealing();
 
     return 0;
 }
