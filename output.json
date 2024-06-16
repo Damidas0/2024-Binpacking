@@ -1,0 +1,124 @@
+{
+    "bins": [
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 8,
+                    "width": 66,
+                    "height": 148,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 10,
+                    "width": 69,
+                    "height": 165,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 4,
+                    "width": 83,
+                    "height": 140,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 2,
+                    "width": 114,
+                    "height": 118,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 7,
+                    "width": 120,
+                    "height": 160,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 6,
+                    "width": 143,
+                    "height": 166,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 3,
+                    "width": 167,
+                    "height": 152,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "dimensions": {
+                "width": 250,
+                "height": 250
+            },
+            "rectangles": [
+                {
+                    "id": 1,
+                    "width": 167,
+                    "height": 184,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        }
+    ]
+}
