@@ -73,7 +73,7 @@ def plot_fitness_from_json(json_file):
 
 
 if __name__ == '__main__':
-    json_files = "results/resultsAnnealing.json"
+    json_files = "results/resultsTabou.json"
     fitness_files = "results/fitness_values.json"
     with open(json_files, 'r') as f:
         data = json.load(f)

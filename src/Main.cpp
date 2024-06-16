@@ -13,9 +13,8 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-//variable globale du main 
- std::string instances[] = {
+// Liste des instances en variagble globale
+    std::string instances[] = {
         "data/binpacking2d/binpacking2d-01.bp2d",
         "data/binpacking2d/binpacking2d-02.bp2d",
         "data/binpacking2d/binpacking2d-03.bp2d",
@@ -32,132 +31,16 @@ using namespace std;
     }; 
 
 
- 
 
-// void testLGFI()
-// {
-//     //test de LGFI
-//     Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
-//     m.printSpec();
-
-
-//     AlgoNaive a(m);
-//     a.run();
-//     a.m_solution.dumpToJson("results/output.json");
-
-
-
-
-
-// }
-
-// void testNaive()
-// {
-//     AlgoNaive algo(Ennonce("data/binpacking2d/binpacking2d-00.bp2d")); //pour l'instant on lui donne un faux path mais il faudra faire le contructeur par défaut
-
-//     std::string file_path = "results/resultsNaive_StrategyshorterLeftover.json";
-
-//     Testing tester;
-//     tester.dumpSolutionAllInstances(algo, file_path);
-
-
-// }
-// void testFit()
-// {
-//     FreeSpace fs = FreeSpace(5, 5, Coordinate(0, 0));
-//     Item i1(1, 5, 5);
-//     bool rotate = false;
-//     cout << fs.fitGlobal(i1, rotate) << endl;
-
-// }
-// void testSimulatedAnnealing()
-// {
-
-//     Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
-//     m.printSpec();
-//     SimulatedAnnealing algo(m);
-
-//     algo.run();
-//     algo.m_solution.dumpToJson("results/output.json");
-
-
-
-
-
-
-
-
-
-
-
-
-// }
-
-// void testing()
-// {   
-
-//     SimulatedAnnealing algo(Ennonce("data/binpacking2d/binpacking2d-00.bp2d"));
-//     Testing test; 
-//     test.dumpSolutionAllInstances(algo, "results/resultsSimulatedAnnealingAllinstances.json");
-// }
-
-
-
-void annealing(int num) // on rentre vraiment le numéro pas l'index
-{
-    assert (num > 0 && num <=13);
-    Ennonce m(instances[num-1]);
-=======
-void testLGFI()
-{
-    // test de LGFI
-    Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
-    m.printSpec();
-
-    AlgoNaive a(m);
-    a.run();
-    a.m_solution.dumpToJson("results/output.json");
-
-
-
-
-
-}
-
-void testNaive()
-{
-    AlgoNaive algo(Ennonce("data/binpacking2d/binpacking2d-00.bp2d")); // pour l'instant on lui donne un faux path mais il faudra faire le contructeur par défaut
-
-    std::string file_path = "results/resultsNaive_StrategyshorterLeftover.json";
-
-    Testing tester;
-    tester.dumpSolutionAllInstances(algo, file_path);
-
-
-}
-void testFit()
-{
-    FreeSpace fs = FreeSpace(5, 5, Coordinate(0, 0));
-    Item i1(1, 5, 5);
-    bool rotate = false;
-    cout << fs.fitGlobal(i1, rotate) << endl;
-
-}
 void testSimulatedAnnealing()
 {
 
     Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
->>>>>>> refs/remotes/origin/main
     m.printSpec();
     SimulatedAnnealing algo(m);
 
     algo.run();
     algo.m_solution.dumpToJson("results/output.json");
-<<<<<<< HEAD
-    algo.DumpFitnessValues("results/fitness_values.json");
-    std::cout << "fitness : " << algo.m_solution.Fitness() << std::endl;
-=======
-
 
 }
 
@@ -177,7 +60,6 @@ void testGenet()
 
     g.run();
 
->>>>>>> refs/remotes/origin/main
 }
 
 void Naive(int num) // on rentre vraiment le numéro pas l'index
@@ -229,12 +111,19 @@ void Tabou(int num) // on rentre vraiment le numéro pas l'index
     std::cout << "fitness : " << algo.m_solution.Fitness() << std::endl;
 }
 
+void testTabou()
+{
+    Ennonce m("data/binpacking2d/binpacking2d-01.bp2d"); //peu importe le path ici il sera mis à jour par la suite
+    m.printSpec();
+    TabouSearch algo(m);
+
+    std::string file_path = "results/resultsTabou.json";
+
+    Testing tester;
+    tester.dumpSolutionAllInstances(algo, file_path);
+}
+
 int main() {
-<<<<<<< HEAD
-=======
-    testGenet();
 
->>>>>>> refs/remotes/origin/main
-
-    Tabou(4);
+    testTabou();
 }

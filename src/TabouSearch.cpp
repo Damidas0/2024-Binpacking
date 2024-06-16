@@ -90,7 +90,6 @@ std::list<std::list<Item>> TabouSearch::generateAllNeighbors() {
         Item item = *itNeighbor;
         neighbor.erase(itNeighbor);
 
-        // Générer une position aléatoire pour la réinsertion
         auto insertPos = neighbor.begin();
         std::advance(insertPos, rand() % (neighbor.size() + 1));
         neighbor.insert(insertPos, item);
@@ -109,11 +108,11 @@ void TabouSearch::run()
 {   
     int compteur = 0;
     int noImprovementCount = 0;
-    const int maxNoImprovement = 25; // Arrêt après un certain nombre d'itérations sans amélioration
+    const int maxNoImprovement = 15; // Arrêt après un certain nombre d'itérations sans amélioration
 
     std::cout << "Fitness de la solution initiale: " << Current.Fitness() << std::endl;
 
-    while (compteur < 100 && noImprovementCount < maxNoImprovement) // Arrêt après un certain nombre d'itérations ou sans amélioration
+    while (compteur < 40 && noImprovementCount < maxNoImprovement) // Arrêt après un certain nombre d'itérations ou sans amélioration
     {   
         std::list<std::list<Item>> allNeighbors = generateAllNeighbors();
         std::list<Item> bestNeighbor;
