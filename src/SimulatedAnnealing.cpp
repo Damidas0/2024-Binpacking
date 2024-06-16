@@ -28,14 +28,14 @@ void SimulatedAnnealing::initialize()
     //paramètre de l'algo
     temperature = 5;
     lambda = 0.999;
-    iterations = 250; 
+    iterations = 500; 
 }
 
 
 std::list<Item> SimulatedAnnealing::generateNeighbor() {
     std::list<Item> neighbor = CurrentList; // Fait une copie de CurrentList
 
-    if ((rand() % 2  == 0))
+    if ((rand() % 3 == 0))
      {
         // Changer un paire d'items cote à cote et les échanger 
         if (neighbor.size() > 1) { // Assure qu'il y a au moins deux éléments
@@ -54,6 +54,8 @@ std::list<Item> SimulatedAnnealing::generateNeighbor() {
     return neighbor;
 }
 
+
+
 void SimulatedAnnealing::run()
 {   
     //debbug 
@@ -63,7 +65,7 @@ void SimulatedAnnealing::run()
     int compteur = 0;
     std::cout << "fitness de la solution initiale: " << Current.Fitness() << std::endl;
 
-    while (temperature > 0.1)
+    while (temperature > 0.01)
     {   
 
 

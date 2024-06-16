@@ -32,6 +32,7 @@ void Testing::dumpSolutionAllInstances(AlgoAbstract& algo, const std::string& fi
 
     for (int i = 0; i < 13; ++i)
     {
+        std::cout << "------------Instance " << i+1 << "----------------"<< std::endl;
         Ennonce m(instances[i]);
         algo.updateEnnonce(m);
         auto start = std::chrono::high_resolution_clock::now();
@@ -40,6 +41,9 @@ void Testing::dumpSolutionAllInstances(AlgoAbstract& algo, const std::string& fi
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
         ExeTime[i] = duration.count();
+        std::cout << "Fitness: " << resultFitnes[i] << std::endl;
+        std::cout << "Execution time: " << ExeTime[i] << " ms" << std::endl;
+        
     }
     
     

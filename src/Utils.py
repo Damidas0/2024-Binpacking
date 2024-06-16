@@ -47,7 +47,7 @@ def plot_fitness_from_json(json_file):
         data = json.load(f)
     
     fitness_values = data['fitness_values']
-    iterations = range(0, len(fitness_values) * 10, 10)  # Indices des itérations (0, 10, 20, ...)
+    iterations = range(0, len(fitness_values) * 2, 2)  # Indices des itérations (0, 10, 20, ...)
     
     # Calculer l'évolution de la meilleure fitness rencontrée jusqu'à chaque itération
     best_so_far = float('inf')  # Initialiser avec une valeur infinie
@@ -73,8 +73,11 @@ def plot_fitness_from_json(json_file):
 
 
 if __name__ == '__main__':
-    json_files = "results/resultsSimulatedAnnealingAllinstances.json"
+    json_files = "results/resultsAnnealing.json"
+    fitness_files = "results/fitness_values.json"
     with open(json_files, 'r') as f:
         data = json.load(f)
 
     print(json_to_latex_table(data))
+    plot_fitness_from_json(fitness_files)
+

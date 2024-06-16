@@ -1,7 +1,14 @@
 #include "TabouSearch.h"
 #include <random>  
+#include <fstream>
+#include <algorithm>
 
 TabouSearch::TabouSearch(Ennonce enonce) : AlgoAbstract(enonce)
+{
+    initialize();
+}
+
+void TabouSearch::initialize()
 {
     CurrentList = m_enonce.items;
     int bin_width = m_enonce.bin_width;
@@ -17,13 +24,43 @@ TabouSearch::TabouSearch(Ennonce enonce) : AlgoAbstract(enonce)
     this->Current = this->m_solution;
     this->BestSolution = this->m_solution;
 
-    tabouListMaxSize = 10; 
+    tabouListMaxSize = 100; 
+}
+
+void TabouSearch::updateEnnonce(Ennonce enonce)
+{
+    m_enonce = enonce;
+    initialize();
+}
+
+void TabouSearch::DumpFitnessValues(std::string file_path)
+{
+    std::ofstream outputFile(file_path);
+    if (outputFile.is_open()) {
+        outputFile << "{\n";
+        outputFile << "    \"fitness_values\": [\n";
+        bool firstValue = true;
+        for (const auto& value : fitness_values) {
+            if (!firstValue) {
+                outputFile << ",\n";
+            }
+            outputFile << "        " << value;
+            firstValue = false;
+        }
+        outputFile << "\n    ]\n";
+        outputFile << "}\n";
+        outputFile.close();
+
+        std::cout << "JSON file has been saved\n";
+    } else {
+        std::cerr << "Unable to open the file for writing JSON dump.\n";
+    }
 }
 
 std::list<std::list<Item>> TabouSearch::generateAllNeighbors() {
     std::list<std::list<Item>> allNeighbors;
     
-    // Rotate un item aléatoire
+    // Rotate un item
     for (auto it = CurrentList.begin(); it != CurrentList.end(); ++it) {
         std::list<Item> neighbor = CurrentList; 
         auto itNeighbor = neighbor.begin();
@@ -32,8 +69,7 @@ std::list<std::list<Item>> TabouSearch::generateAllNeighbors() {
         allNeighbors.push_back(neighbor);
     }
 
-
-    // swap deux items cote à cote
+    // Swap deux items contigus
     for (auto it = CurrentList.begin(); it != CurrentList.end(); ++it) {
         auto nextIt = std::next(it);
         if (nextIt != CurrentList.end()) {
@@ -46,25 +82,38 @@ std::list<std::list<Item>> TabouSearch::generateAllNeighbors() {
         }
     }
 
+    // Supprimer un élément et le réinsérer à une position aléatoire
+    for (auto it = CurrentList.begin(); it != CurrentList.end(); ++it) {
+        std::list<Item> neighbor = CurrentList;
+        auto itNeighbor = neighbor.begin();
+        std::advance(itNeighbor, std::distance(CurrentList.begin(), it));
+        Item item = *itNeighbor;
+        neighbor.erase(itNeighbor);
+
+        // Générer une position aléatoire pour la réinsertion
+        auto insertPos = neighbor.begin();
+        std::advance(insertPos, rand() % (neighbor.size() + 1));
+        neighbor.insert(insertPos, item);
+
+        allNeighbors.push_back(neighbor);
+    }
+
     return allNeighbors;
 }
 
 bool TabouSearch::isTabou(const std::list<Item>& solution) {
-    for (const auto& tabouSolution : tabouList) {
-        if (tabouSolution == solution) {
-            return true;
-        }
-    }
-    return false;
+    return std::find(tabouList.begin(), tabouList.end(), solution) != tabouList.end();
 }
 
 void TabouSearch::run()
 {   
-
     int compteur = 0;
+    int noImprovementCount = 0;
+    const int maxNoImprovement = 25; // Arrêt après un certain nombre d'itérations sans amélioration
+
     std::cout << "Fitness de la solution initiale: " << Current.Fitness() << std::endl;
 
-    while (compteur < 50) // Arrêt après un certain nombre d'itérations
+    while (compteur < 100 && noImprovementCount < maxNoImprovement) // Arrêt après un certain nombre d'itérations ou sans amélioration
     {   
         std::list<std::list<Item>> allNeighbors = generateAllNeighbors();
         std::list<Item> bestNeighbor;
@@ -92,8 +141,14 @@ void TabouSearch::run()
             if (BestSolution.Fitness() > bestNeighborFitness) {
                 BestSolution = bestNeighborSolution;
                 std::cout << "Nouvelle meilleure solution trouvée" << std::endl;
+                noImprovementCount = 0; // Réinitialiser le compteur de non-amélioration
+            } else {
+                noImprovementCount++;
             }
+        } else {
+            noImprovementCount++;
         }
+
         // Ajouter la solution courante à la liste tabou
         tabouList.push_back(bestNeighbor);
         if (tabouList.size() > tabouListMaxSize) {
@@ -101,11 +156,14 @@ void TabouSearch::run()
         }
 
         compteur++;
+        if (compteur % 2 == 0) //toutes les 2 itérations on stocke la fitness
+        {
+            fitness_values.push_back(Current.Fitness());
+        }
         if (compteur % 5 == 0) {
             std::cout << "------------Iteration: " << compteur << "----------------" << std::endl;
             std::cout << "Current fitness: " << Current.Fitness() << std::endl;
             std::cout << "Best fitness: " << BestSolution.Fitness() << std::endl;
-
         }
     }
 
