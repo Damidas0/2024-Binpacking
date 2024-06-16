@@ -12,6 +12,7 @@ void Solution::createNewBin(int width, int height)
 {
     Bin b(width, height);
     listBin.push_front(b);
+    nbBins++;
 }
 
 int Solution::getNumberOfBins()
@@ -19,29 +20,30 @@ int Solution::getNumberOfBins()
     return this->listBin.size();
 }
 
-void Solution::add(Item i, Coordinate c, Bin &b)
+//void Solution::add(Item i, Coordinate c, Bin &b)
+float Solution::Fitness() const
 {
-    if (b.fit(c, i)) {
+    int res = nbBins; 
+    //std::cout << "nbBins: " << nbBins << std::endl;
+    float fillingLstBin = listBin.front().getArea() - listBin.front().freeSpace();
+    float areaBin = listBin.front().getArea();
+    float lastFilling = fillingLstBin/areaBin;
 
+    
+    // std::cout <<"freespace in last bin: " << listBin.front().freeSpace() << std::endl;
+    // std::cout << "area of last bin: " << listBin.front().getArea() << std::endl;
+    // std::cout << "lastFilling: " << lastFilling << std::endl;
+    // std::cout << "fitness (nbBins -1 + lastFilling): " << res-1 + lastFilling << std::endl; //on mets le nombre de bins-1 comme ça on a un nombre de bins correct et on ajoute le remplissage de la dernière bin, pour avoir le nombre de bins total on arrondis au supérieur
 
-        map[i] = &b;
-        b.items.push_back(i);
-
-        for (int x = c.getX(); x < c.getX() + i.getWidth(); x++) {
-            for (int y = c.getY(); y <c.getY() + i.getHeight(); y++) {
-                b.is_free[x][y] = false;
-            }
-        }
-    }
-    else 
-    {   
-
-        std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
-    }
+    return res - 1 + lastFilling; 
 }
+
+
+
 
 Solution::Solution()
 {
+    nbBins = 0; 
 
 }
 

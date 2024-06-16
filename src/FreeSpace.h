@@ -1,3 +1,4 @@
+#pragma once
 #include "Bin.h"
 #include "Coordinate.h"
 

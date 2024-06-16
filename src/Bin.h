@@ -1,6 +1,4 @@
-#ifndef BIN_H
-#define BIN_H
-
+#pragma once
 
 #include "Rectangle.h"
 #include<list>
@@ -57,7 +55,8 @@ class Bin : public Rectangle{
          * @brief Fonction qui teste si un item peut être placé dans le bin à une certaine coordonnée peu importe la rotation 
          * @param rotate booléen qui indique si l'item doit être tourné ou non qui est passé par référence et qui est modifié par la fonction
          */
-        bool fitGlobal(Coordinate c, Item i, bool& rotate); 
+        bool fitGlobal(const Coordinate& topLeft, const Item& item, bool& rotate) const;
+        void add(Item i, Coordinate c);
 
 
   
@@ -71,4 +70,3 @@ class Bin : public Rectangle{
 
 };
 
-#endif

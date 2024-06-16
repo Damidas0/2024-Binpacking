@@ -8,10 +8,10 @@
 
 Bin::Bin(int width, int height) : Rectangle(width, height)
 {
-    for (int i = 0; i < width; i++)
+    for (int i = 0; i < height; i++)
     {
         std::vector<bool> temp;
-        for (int j = 0; j < height; j++)
+        for (int j = 0; j < width; j++)
         {
             temp.push_back(true);
         }
@@ -52,7 +52,7 @@ void Bin::addItem(Item i)
 int Bin::freeSpace() const
 {
     int res = 0;
-    for (int i = 0; i < this->getWidth(); i++)
+    for (int i = 0; i < this->getWidth(); i++) //here the order doesnt matter but in theory it should be the other way around
     {
         for (int j = 0; j < getHeight(); j++)
         {
@@ -67,11 +67,11 @@ int Bin::freeSpace() const
 
 bool Bin::fit(Coordinate c, Item it)
 {
-    for (int i = c.getX(); i < c.getX() + it.getWidth(); i++)
+    for (int y= c.getY(); y < c.getY() + it.getHeight(); y++)
     {
-        for (int j = c.getY(); j < c.getY() + it.getHeight(); j++)
+        for (int x = c.getX(); x < c.getX() + it.getWidth(); x++)
         {
-            if (this->is_free[i][j] == false)
+            if (x >= getWidth() || y >= getHeight() || !is_free[y][x])
             {
                 return false;
             }
@@ -87,30 +87,53 @@ bool Bin::fitRotate(Coordinate c, Item i) //l'objet I ne doit pas être modifié
     return fit(c, rotatedItem); // Test de la copie
 }
 
-bool Bin::fitGlobal(Coordinate c, Item i, bool &rotate)
+
+bool Bin::fitGlobal(const Coordinate& topLeft, const Item& item, bool& rotate) const
 {
-    if (fit(c, i))
-    {
+    // Vérifier si l'item rentre sans rotation
+    if (item.getWidth() <= getWidth() && item.getHeight() <= getHeight()) {
         rotate = false;
         return true;
     }
-    else if (fitRotate(c, i))
-    {
+    // Vérifier si l'item rentre avec rotation
+    if (item.getHeight() <= getWidth() && item.getWidth() <= getHeight()) {
         rotate = true;
         return true;
     }
     return false;
 }
 
+
+
 void Bin::printIsFree() const
 {
-    for (int i = 0; i < this->getWidth(); i++)
+    for (int i = 0; i < this->getHeight(); i++)
     {
-        for (int j = 0; j < getHeight(); j++)
+        for (int j = 0; j < getWidth(); j++)
         {
             std::cout << is_free[i][j] << " ";
         }
         std::cout << std::endl;
+    }
+}
+
+void Bin::add(Item i, Coordinate c)
+{
+    if (fit(c, i))
+    {
+        i.topLeft = c;
+        items.push_back(i);
+        for (int x = c.getX(); x < c.getX() + i.getWidth(); x++)
+        {
+            for (int y = c.getY(); y < c.getY() + i.getHeight(); y++)
+            {
+                is_free[y][x] = false; //works because it is inversed
+            }
+        }
+    }
+    else
+    {
+        //std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
     }
 }
 
