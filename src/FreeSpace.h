@@ -14,5 +14,11 @@ public:
     bool wastedSpace; 
     Coordinate topLeft;
 
+     /**
+     * @brief fonction qui ajoute un item dans la bin
+     * on a pas besoin des coordonnée parce qu'on place toujours en haut à gauche du fs 
+     */
+    void add(Item i); 
+
 
 };

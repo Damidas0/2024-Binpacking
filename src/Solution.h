@@ -20,7 +20,7 @@ private:
     /**
      * @brief Fonction qui teste si un item peut être placé dans un bin à une certaine coordonnée en utilisant la fonction fit de Bin
      */
-    bool fit(Item i, Coordinate c, Bin b);
+    //bool fit(Item i, Coordinate c, Bin b);
 
 public:
     /**

@@ -4,6 +4,8 @@
 #include "Solution.h"
 #include <fstream>
 #include <iostream>
+#include <chrono>
+
 
 void Testing::dumpSolutionAllInstances(AlgoAbstract& algo, const std::string& file_path)
 {
@@ -23,6 +25,23 @@ void Testing::dumpSolutionAllInstances(AlgoAbstract& algo, const std::string& fi
         "data/binpacking2d/binpacking2d-12.bp2d",
         "data/binpacking2d/binpacking2d-13.bp2d"
     }; 
+
+    //mesure du temps
+    float ExeTime[13];
+    
+
+    for (int i = 0; i < 13; ++i)
+    {
+        Ennonce m(instances[i]);
+        algo.updateEnnonce(m);
+        auto start = std::chrono::high_resolution_clock::now();
+        algo.run();
+        resultFitnes[i] = algo.m_solution.Fitness();
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        ExeTime[i] = duration.count();
+    }
+    
     
     // Création du fichier de sortie
     std::ofstream file(file_path);
@@ -38,19 +57,15 @@ void Testing::dumpSolutionAllInstances(AlgoAbstract& algo, const std::string& fi
     // Écriture des résultats pour chaque instance
     for (int i = 0; i < 13; ++i)
     {
-        Ennonce m(instances[i]);
-        algo.m_enonce = m;
-        algo.run();
-        resultFitnes[i] = algo.m_solution.Fitness();
-
         file << "    {\n";
         file << "      \"instance\": \"" << i+1 << "\",\n";
-        file << "      \"fitness\": " << resultFitnes[i] << "\n";
+        file << "      \"fitness\": " << resultFitnes[i] << ",\n";
+        file << "      \"execution_time\": " << ExeTime[i] << "\n";
+        file << "    }";
         if (i < 12) {
-            file << "    },\n";
-        } else {
-            file << "    }\n";
+            file << ",";
         }
+        file << "\n";
     }
 
     // Fin du format JSON

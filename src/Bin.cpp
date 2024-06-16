@@ -8,15 +8,8 @@
 
 Bin::Bin(int width, int height) : Rectangle(width, height)
 {
-    for (int i = 0; i < height; i++)
-    {
-        std::vector<bool> temp;
-        for (int j = 0; j < width; j++)
-        {
-            temp.push_back(true);
-        }
-        is_free.push_back(temp);
-    }
+    is_free.resize(width, std::vector<bool>(height, true));  // Initialize is_free grid
+
 }
 
 void Bin::serialize(std::ofstream &outputFile) const
@@ -51,52 +44,45 @@ void Bin::addItem(Item i)
 
 int Bin::freeSpace() const
 {
-    int res = 0;
-    for (int i = 0; i < this->getWidth(); i++) //here the order doesnt matter but in theory it should be the other way around
-    {
-        for (int j = 0; j < getHeight(); j++)
-        {
-            if (is_free[i][j])
-            {
-                res++;
+    int freeCount = 0;
+        for (const auto& row : is_free) {
+            for (bool free : row) {
+                if (free) {
+                    freeCount++;
+                }
             }
         }
-    }
-    return res;
+    return freeCount;
 }
 
-bool Bin::fit(Coordinate c, Item it)
+bool Bin::fit(Item it)
 {
-    for (int y= c.getY(); y < c.getY() + it.getHeight(); y++)
+    if (it.getWidth() > getWidth() || it.getHeight() > getHeight())
     {
-        for (int x = c.getX(); x < c.getX() + it.getWidth(); x++)
-        {
-            if (x >= getWidth() || y >= getHeight() || !is_free[y][x])
-            {
-                return false;
-            }
-        }
+        return false;
     }
     return true;
 }
 
-bool Bin::fitRotate(Coordinate c, Item i) //l'objet I ne doit pas être modifié 
+bool Bin::fitRotate(Item i) //l'objet I ne doit pas être modifié 
 {
-    Item rotatedItem = i; // Copie de l'objet i
-    rotatedItem.rotate(); // Rotation de la copie
-    return fit(c, rotatedItem); // Test de la copie
+    if (i.getHeight() > getWidth() || i.getWidth() > getHeight())
+    {
+        return false;
+    }
+    return true;
 }
 
 
-bool Bin::fitGlobal(const Coordinate& topLeft, const Item& item, bool& rotate) const
+bool Bin::fitGlobal(Item item, bool& rotate) 
 {
-    // Vérifier si l'item rentre sans rotation
-    if (item.getWidth() <= getWidth() && item.getHeight() <= getHeight()) {
+    if (fit(item))
+    {
         rotate = false;
         return true;
     }
-    // Vérifier si l'item rentre avec rotation
-    if (item.getHeight() <= getWidth() && item.getWidth() <= getHeight()) {
+    else if (fitRotate(item))
+    {
         rotate = true;
         return true;
     }
@@ -117,24 +103,17 @@ void Bin::printIsFree() const
     }
 }
 
-void Bin::add(Item i, Coordinate c)
+void Bin::add(Item item, Coordinate c)
 {
-    if (fit(c, i))
+    item.topLeft = c;
+    items.push_back(item);
+    for (int i = c.getX(); i < c.getX() + item.getWidth(); i++)
     {
-        i.topLeft = c;
-        items.push_back(i);
-        for (int x = c.getX(); x < c.getX() + i.getWidth(); x++)
+        for (int j = c.getY(); j < c.getY() + item.getHeight(); j++)
         {
-            for (int y = c.getY(); y < c.getY() + i.getHeight(); y++)
-            {
-                is_free[y][x] = false; //works because it is inversed
-            }
+            is_free[i][j] = false;
         }
     }
-    else
-    {
-        //std::cerr << "Item cannot be placed at the given coordinates : (" << c.getX() << ", " << c.getY() << ")\n";
-    }
+    
 }
-
 

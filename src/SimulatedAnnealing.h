@@ -5,6 +5,7 @@
 #include "Ennonce.h"
 #include <list>
 #include "Item.h"
+#include <fstream>
 
 class SimulatedAnnealing: public AlgoAbstract
 {
@@ -15,6 +16,20 @@ private:
      * @return std::list<Item> 
      */
     std::list<Item> generateNeighbor();
+
+    /**
+     * @brief stocke les valeurs de fitness des solutions trouvées (toutes les 10 itérations) pour tracer la courbe
+     */
+    std::vector<float> fitness_values;
+
+
+
+    /**
+     * @brief Fonction qui initialise les paramètres de l'algorithme et qui permet de changer d'énoncé sans recréer l'objet
+     * @warning il faut avoir change l'énoncé avant d'appeler cette fonction
+     */
+    void initialize();
+
 
 
 
@@ -43,6 +58,11 @@ public:
     double temperature;
 
     /**
+     * @brief Nombre d'itérations
+     */
+    int iterations;
+
+    /**
      * @brief list d'item qui représente la solution courante
      */
     std::list<Item> CurrentList;
@@ -56,6 +76,16 @@ public:
      * @brief Fonction qui lance l'algorithme
      */
     void run() override;
+
+    /**
+     * @brief Fonction qui dump en json les valeurs de fitness
+     */
+    void DumpFitnessValues(std::string file_path);
+    /**
+     * @brief Fonction qui met à jour l'énoncé et réinitialise les paramètres de l'algorithme en fonction de ce nouvel énoncé. 
+     */
+    void updateEnnonce(Ennonce enonce) override; 
+
 
 
 };

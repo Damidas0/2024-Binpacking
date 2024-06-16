@@ -21,6 +21,12 @@ void testLGFI()
 
     AlgoNaive a(m);
     a.run();
+    a.m_solution.dumpToJson("results/output.json");
+
+
+
+
+
 }
 
 void testNaive()
@@ -32,26 +38,35 @@ void testNaive()
     Testing tester;
     tester.dumpSolutionAllInstances(algo, file_path);
 
-    // Vérification et gestion des erreurs
-    // Ici, vous pouvez ajouter du code pour vérifier si le fichier a été correctement créé,
-    // gérer les exceptions, etc.
+
 }
 void testFit()
 {
     FreeSpace fs = FreeSpace(5, 5, Coordinate(0, 0));
     Item i1(1, 5, 5);
     bool rotate = false;
-    cout << fs.fitGlobal(fs.topLeft, i1, rotate) << endl;
+    cout << fs.fitGlobal(i1, rotate) << endl;
+
 }
 void testSimulatedAnnealing()
 {
-    // test de SimulatedAnnealing
-    Ennonce m("data/binpacking2d/binpacking2d-04.bp2d");
-    m.printSpec();
 
-    SimulatedAnnealing t(m);
-    t.run();
+    Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
+    m.printSpec();
+    SimulatedAnnealing algo(m);
+
+    algo.run();
+    algo.m_solution.dumpToJson("results/output.json");
+
+
 }
+
+
+
+
+
+
+
 
 void testGenet()
 {
@@ -61,11 +76,20 @@ void testGenet()
     AlgoGenetique g(m, 20, 20, 0.05);
 
     g.run();
+
 }
 
-int main()
-{
-    testGenet();
+void testing()
+{   
 
-    return 0;
+    SimulatedAnnealing algo(Ennonce("data/binpacking2d/binpacking2d-00.bp2d"));
+    Testing test; 
+    test.dumpSolutionAllInstances(algo, "results/resultsSimulatedAnnealingAllinstances.json");
+}
+
+
+int main() {
+    testLGFI();
+
+
 }

@@ -49,13 +49,18 @@ class Bin : public Rectangle{
          * @param c coordonnée de la case à tester
          * @return true si la case est libre, false sinon
          */
-        bool fit(Coordinate c, Item i);
-        bool fitRotate(Coordinate c, Item i);
+        bool fit(Item i);
+        bool fitRotate( Item i);
         /**
          * @brief Fonction qui teste si un item peut être placé dans le bin à une certaine coordonnée peu importe la rotation 
          * @param rotate booléen qui indique si l'item doit être tourné ou non qui est passé par référence et qui est modifié par la fonction
          */
-        bool fitGlobal(const Coordinate& topLeft, const Item& item, bool& rotate) const;
+        bool fitGlobal( Item item, bool& rotate) ;
+        /**
+         * @brief Fonction qui ajoute un item dans le bin
+         * @param i item à ajouter
+         * @param c coordonnée de l'item
+         */
         void add(Item i, Coordinate c);
 
 
