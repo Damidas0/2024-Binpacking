@@ -28,7 +28,7 @@ void SimulatedAnnealing::initialize()
     //paramètre de l'algo
     temperature = 5;
     lambda = 0.999;
-    iterations = 500; 
+    iterations = 250; 
 }
 
 

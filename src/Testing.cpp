@@ -38,7 +38,7 @@ void Testing::dumpSolutionAllInstances(AlgoAbstract& algo, const std::string& fi
         algo.run();
         resultFitnes[i] = algo.m_solution.Fitness();
         auto end = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
         ExeTime[i] = duration.count();
     }
     

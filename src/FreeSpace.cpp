@@ -1,4 +1,5 @@
 #include "FreeSpace.h"
+#include <iostream>
 
 /**
  * @brief constructeur
@@ -9,3 +10,5 @@ FreeSpace::FreeSpace(int width, int height, Coordinate topLeft)
     {
         wastedSpace = false;
     }
+
+

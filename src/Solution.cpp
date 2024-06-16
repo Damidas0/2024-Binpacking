@@ -3,10 +3,10 @@
 #include <iostream>
 
 
-bool Solution::fit(Item i, Coordinate c, Bin b)
-{
-    return b.fit(c, i);
-}
+// bool Solution::fit(Item i, Coordinate c, Bin b)
+// {
+//     return b.fit(c);
+// }
 
 void Solution::createNewBin(int width, int height)
 {
@@ -29,7 +29,7 @@ float Solution::Fitness() const
     // std::cout << "lastFilling: " << lastFilling << std::endl;
     // std::cout << "fitness (nbBins -1 + lastFilling): " << res-1 + lastFilling << std::endl; //on mets le nombre de bins-1 comme ça on a un nombre de bins correct et on ajoute le remplissage de la dernière bin, pour avoir le nombre de bins total on arrondis au supérieur
 
-    return res - 1 + lastFilling; 
+    return res - 1  + lastFilling; 
 }
 
 

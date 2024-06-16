@@ -25,6 +25,7 @@ void testLGFI()
 
     AlgoNaive a(m);
     a.run();
+    a.m_solution.dumpToJson("results/output.json");
 
 
 
@@ -48,16 +49,19 @@ void testFit()
     FreeSpace fs = FreeSpace(5, 5, Coordinate(0, 0));
     Item i1(1, 5, 5);
     bool rotate = false;
-    cout << fs.fitGlobal(fs.topLeft, i1, rotate) << endl;
+    cout << fs.fitGlobal(i1, rotate) << endl;
 
 }
 void testSimulatedAnnealing()
 {
 
+    Ennonce m("data/binpacking2d/binpacking2d-02.bp2d");
+    m.printSpec();
+    SimulatedAnnealing algo(m);
 
-    SimulatedAnnealing algo(Ennonce("data/binpacking2d/binpacking2d-01.bp2d"));
     algo.run();
-    algo.m_solution.dumpToJson("results/outputs");
+    algo.m_solution.dumpToJson("results/output.json");
+
 
 
 
@@ -81,7 +85,7 @@ void testing()
 
 
 int main() {
-    testSimulatedAnnealing();
+    testLGFI();
 
 
 }

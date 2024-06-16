@@ -11,7 +11,7 @@ void AlgoNaive::run()
 
     //on trie la liste d'items par ordre décroissant d'aire
 
-    //items.sort([](Item a, Item b) { return a.getArea() > b.getArea(); });
+    items.sort([](Item a, Item b) { return a.getArea() > b.getArea(); });
 
     //on initialise lgfi
     LGFI_heuristic lgfi(items, bin_width, bin_height);
